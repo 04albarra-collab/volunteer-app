@@ -13,6 +13,17 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   });
 });
 
+function togglePassword(fieldId, btn) {
+  const field = document.getElementById(fieldId);
+  if (field.type === 'password') {
+    field.type = 'text';
+    btn.textContent = '&#128066;';
+  } else {
+    field.type = 'password';
+    btn.textContent = '&#128065;';
+  }
+}
+
 function handleLogin(e) {
   e.preventDefault();
   const email = document.getElementById('loginEmail').value;
