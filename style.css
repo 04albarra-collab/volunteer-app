@@ -74,16 +74,12 @@ body {
   object-fit: cover;
 }
 
-.logo-damkar {
-  border: 2px solid #c0392b;
-  background-color: rgba(192, 57, 43, 0.15);
-  padding: 3px;
+.logo-putih {
+  
 }
 
-.logo-relawan {
-  border: 2px solid #2980b9;
-  background-color: rgba(41, 128, 185, 0.15);
-  padding: 3px;
+.logo-merah {
+  
 }
 
 .logo span {
@@ -177,26 +173,21 @@ body {
   margin-bottom: 40px;
 }
 
-.damkar-logo {
+.putih-logo {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   background-color: rgba(192, 57, 43, 0.2);
-  border: 3px solid #c0392b;
-  padding: 4px;
 }
 
-.relawan-logo {
+.merah-logo {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  background-color: rgba(41, 128, 185, 0.2);
-  border: 3px solid #2980b9;
-  padding: 4px;
 }
 
 
@@ -349,16 +340,12 @@ footer {
   object-fit: cover;
 }
 
-.footer-logo .logo-damkar {
-  border: 2px solid #c0392b;
-  background-color: rgba(192, 57, 43, 0.15);
-  padding: 2px;
+.footer-logo .logo-putih {
+  
 }
 
-.footer-logo .logo-relawan {
-  border: 2px solid #2980b9;
-  background-color: rgba(41, 128, 185, 0.15);
-  padding: 2px;
+.footer-logo .logo-merah {
+  
 }
 
 .footer-content p {
@@ -519,7 +506,6 @@ footer {
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  padding: 4px;
   opacity: 0.7;
   transition: opacity 0.3s;
 }
@@ -907,12 +893,12 @@ footer {
     gap: 25px;
   }
 
-  .damkar-logo {
+  .putih-logo {
     width: 80px;
     height: 80px;
   }
 
-  .relawan-logo {
+  .merah-logo {
     width: 80px;
     height: 80px;
   }

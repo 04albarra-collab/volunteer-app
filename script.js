@@ -29,6 +29,15 @@ function handleLogin(e) {
   const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
   if (email && password) {
+    // Cek status verifikasi dari localStorage
+    const dataVerifikasi = localStorage.getItem(`verifikasi_${email}`);
+    if (dataVerifikasi) {
+      const verifikasi = JSON.parse(dataVerifikasi);
+      if (verifikasi.status === 'menunggu') {
+        alert('Sedang menunggu verifikasi dari operator...');
+        return false;
+      }
+    }
     alert('Terima kasih! Masuk berhasil. Selamat datang di Relawan Damkar.');
     return false;
   }
@@ -41,8 +50,16 @@ function handleDaftar(e) {
   const password = document.getElementById('password').value;
   const telepon = document.getElementById('telepon').value;
   if (username && password && telepon) {
-    alert('Terima kasih atas pendaftaran Anda, ' + username + '! Akun Anda berhasil dibuat.');
+    // Simpan status verifikasi ke localStorage
+    localStorage.setItem(`verifikasi_${username}`, JSON.stringify({
+      status: 'menunggu',
+      username: username,
+      email: 'redkarbalikpapan@gmail.com',
+      password: 'Redkar86.'
+    }));
+    alert('Akun berhasil dibuat! Silakan tunggu verifikasi dari operator.');
     document.getElementById('daftarForm').reset();
+    window.location.href = 'login.html';
     return false;
   }
   return false;

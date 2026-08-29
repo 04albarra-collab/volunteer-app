@@ -1,0 +1,3 @@
+;/*FB_PKG_DELIM*/
+
+__d("PolarisSharedAccessStrings",["fbt"],(function(t,n,r,o,a,i,l,s){"use strict";var e=s._(/*BTDS*/"Akses bersama"),u=s._(/*BTDS*/"Fitur tidak tersedia"),c=s._(/*BTDS*/"Beberapa fitur tidak tersedia untuk akun yang memiliki akses bersama."),d=s._(/*BTDS*/"Messaging is unavailable");l.SHARED_ACCESS=e,l.FEATURE_UNAVAILABLE_HEADING=u,l.FEATURE_UNAVAILABLE_DESCRIPTION=c,l.MESSAGING_UNAVAILABLE_HEADING=d}),226);
