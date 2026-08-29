@@ -50,6 +50,12 @@ function handleDaftar(e) {
   const password = document.getElementById('password').value;
   const telepon = document.getElementById('telepon').value;
   if (username && password && telepon) {
+    // Cek apakah username sudah terdaftar
+    const existingUser = localStorage.getItem(`verifikasi_${username}`);
+    if (existingUser) {
+      alert('Akun sudah terdaftar!');
+      return false;
+    }
     // Simpan status verifikasi ke localStorage
     localStorage.setItem(`verifikasi_${username}`, JSON.stringify({
       status: 'menunggu',
