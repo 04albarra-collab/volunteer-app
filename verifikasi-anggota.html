@@ -35,25 +35,38 @@
     </div>
   </nav>
 
-  <div class="container">
-    <h1>Halaman Verifikasi Anggota</h1>
-    
-    <div class="verifikasi-section">
-      <h2>Daftar Menunggu Verifikasi</h2>
-      <p>Total menunggu: <span id="total-pending">0</span></p>
-      <div id="pending-list" class="pending-list">
-        <!-- Daftar akan dimuat oleh JavaScript -->
+  <div class="op-dashboard">
+    <div class="container">
+
+      <div class="op-header">
+        <div>
+          <h1>Dashboard Operator</h1>
+          <p>Kelola dan verifikasi pendaftaran anggota relawan</p>
+        </div>
+        <span class="op-badge">&#128273; Mode Operator Aktif</span>
       </div>
+
+      <div class="op-mode-panel" id="op-mode">
+        <h2>Mode Operator</h2>
+        <p>Kelola data akun verifikasi secara keseluruhan.</p>
+        <div class="op-actions">
+          <button class="btn-danger" id="hapus-semua-btn">Hapus Semua Akun</button>
+          <button class="btn-neutral" id="reset-password-btn">Reset Password Akun</button>
+          <button class="btn-neutral" id="logout-btn">Keluar</button>
+        </div>
+      </div>
+
+      <div class="verifikasi-section">
+        <h2>Daftar Menunggu Verifikasi</h2>
+        <p class="sub">Tinjau dan setujui atau tolak pendaftaran anggota di bawah ini.</p>
+        <div class="pending-count">&#9203; Total menunggu: <span id="total-pending">0</span></div>
+        <div id="pending-list" class="pending-list">
+          <!-- Daftar akan dimuat oleh JavaScript -->
+        </div>
+      </div>
+
     </div>
-    
-    <div class="verifikasi-section" style="margin-top: 40px;">
-      <h2>Setujui/Tolak Anggota</h2>
-      <form id="verifikasi-form">
-        <input type="hidden" id="verify-username" name="username">
-        <button type="submit" class="btn-submit">Setujui Anggota</button>
-        <button type="button" class="btn-cancel" style="background: #e74c3c; margin-left: 10px;">Tolak</button>
-      </form>
-    </div>
+  </div>
 
   <footer>
     <div class="container">
@@ -70,7 +83,6 @@
   <script>
     // Verifikasi data dari localStorage
     document.addEventListener('DOMContentLoaded', function() {
-      // Ambil data verifikasi yang disimpan
       const daftarPending = [];
       for (let i = 0; i < localStorage.length; i++) {
         const kunci = localStorage.key(i);
@@ -85,71 +97,66 @@
           }
         }
       }
-      
-      // Tampilkan daftar pending
+
       const pendingList = document.getElementById('pending-list');
       const totalPending = document.getElementById('total-pending');
-      
       totalPending.textContent = daftarPending.length;
-      
+
       if (daftarPending.length === 0) {
-        pendingList.innerHTML = '<p>Tidak ada anggota menunggu verifikasi.</p>';
+        pendingList.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">&#9989;</div>
+            <p>Tidak ada anggota menunggu verifikasi.</p>
+          </div>`;
       } else {
         let html = '';
-        daftarPending.forEach((item, index) => {
+        daftarPending.forEach((item) => {
           html += `
             <div class="pending-item">
-              <span>${item.username}</span>
-              <span>${item.email}</span>
-              <span>${item.waktu}</span>
-              <div class="actions">
+              <div class="pending-info">
+                <span class="p-user">${item.username}</span>
+                <span class="p-email">${item.email}</span>
+                <span class="p-time">${item.waktu}</span>
+              </div>
+              <div class="pending-actions">
                 <button class="btn-accept" data-username="${item.username}">Setujui</button>
                 <button class="btn-reject" data-username="${item.username}">Tolak</button>
               </div>
-            </div>
-          `;
+            </div>`;
         });
         pendingList.innerHTML = html;
       }
-      
-      // Event listener untuk setujui
+
       document.querySelectorAll('.btn-accept').forEach(btn => {
         btn.addEventListener('click', function() {
-          const username = this.getAttribute('data-username');
-          verifikasiAnggota(username, 'terverifikasi');
+          verifikasiAnggota(this.getAttribute('data-username'), 'terverifikasi');
         });
       });
-      
-      // Event listener untuk tolak
+
       document.querySelectorAll('.btn-reject').forEach(btn => {
         btn.addEventListener('click', function() {
-          const username = this.getAttribute('data-username');
-          verifikasiAnggota(username, 'ditolak');
+          verifikasiAnggota(this.getAttribute('data-username'), 'ditolak');
         });
       });
-      
-      // Form submit
-      const verifikasiForm = document.getElementById('verifikasi-form');
-      verifikasiForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = document.getElementById('verify-username').value;
-        if (username) {
-          verifikasiAnggota(username, 'terverifikasi');
-        }
-      });
+
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          localStorage.removeItem('operator_login');
+          window.location.href = 'index.html';
+        });
+      }
     });
-    
+
     function verifikasiAnggota(username, status) {
-      // Update status verifikasi di localStorage
       const kunci = `verifikasi_${username}`;
       if (localStorage.getItem(kunci)) {
         const data = JSON.parse(localStorage.getItem(kunci));
         data.status = status;
         localStorage.setItem(kunci, JSON.stringify(data));
-        
+
         alert(`Anggota ${username} telah ${status === 'terverifikasi' ? 'disetujui' : 'ditolak'}`);
-        
-        // Refresh page to update list
+
         setTimeout(() => {
           window.location.href = 'verifikasi-anggota.html';
         }, 100);

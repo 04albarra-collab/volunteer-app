@@ -61,7 +61,8 @@ function handleDaftar(e) {
       status: 'menunggu',
       username: email,
       email: email,
-      password: 'Redkar86.'
+      password: 'Redkar86.',
+      waktu: new Date().toLocaleString('id-ID')
     }));
     alert('Akun berhasil dibuat! Silakan tunggu verifikasi dari operator.');
     document.getElementById('daftarForm').reset();
