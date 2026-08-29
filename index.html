@@ -3,141 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Voluntaria - Yatim Mandiri</title>
+  <title>Relawan Damkar</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+
+  <nav class="navbar">
     <div class="container">
-      <nav>
-        <div class="logo">
-          <span>🤝</span> Voluntaria
+      <a href="#" class="logo">
+        <div class="logo-icons">
+          <img src="damkar.jpg" alt="Lambang Damkar" class="logo-small">
+          <img src="relawandamkar.jpg" alt="Lambang Relawan" class="logo-small">
         </div>
-        <ul class="nav-links">
-          <li><a href="#home">Beranda</a></li>
-          <li><a href="#about">Tentang</a></li>
-          <li><a href="#events">Acara</a></li>
-          <li><a href="#contact">Kontak</a></li>
-        </ul>
-        <a href="#contact" class="btn-ctda">Daftar Volunteer</a>
-      </nav>
+        <span>Relawan Damkar</span>
+      </a>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Beranda</a></li>
+        <li><a href="#about">About Us</a></li>
+      </ul>
     </div>
-  </header>
+  </nav>
 
   <section class="hero" id="home">
     <div class="container">
-      <div hero-content>
-        <h1>Gabung Komunitas</h1>
-        <p>Wajah baru dalam misi menjuali masa depan anak-anak yatim</p>
-        <a href="#contact" class="btn-primary">Daftar Sekarang</a>
+      <div class="hero-content">
+        <div class="logo-display">
+          <img src="damkar.jpg" alt="Lambang Damkar" class="damkar-logo">
+          <img src="relawandamkar.jpg" alt="Lambang Relawan" class="relawan-logo">
+        </div>
+        <h1>Relawan Damkar Balikpapan</h1>
+        <p>Jadilah bagian dari tim relawan Damkar di Balikpapan dan bantu masyarakat dalam menghadapi berbagai bencana</p>
+        <a href="#about" class="btn-primary">Tentang Kami</a>
+        <div class="hero-buttons">
+          <a href="login.html" class="btn-secondary">Masuk</a>
+          <a href="daftar.html" class="btn-outline">Daftar</a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="about" id="about">
     <div class="container">
-      <div class="about-content">
-        <div class="about-text">
-          <h2>Tentang Kami</h2>
-          <p>Kami adalah organisasi yang berfokus pada peningkatan kualitas hidup anak-anak yatim. Bergabunglah dengan kami dan jadikan perbedaan Anda sebagai kekuatan untuk membawa perubahan.</p>
-          <ul class="about-list">
-            <li><i class="fas fa-check-circle"></i> 10+ Tahun Pengalaman</li>
-            <li><i class="fas fa-check-circle"></i> 5000+ Volunteer</li>
-            <li><i class="fas fa-check-circle"></i> 30+ Kabupaten</li>
-          </ul>
-        </div>
+      <div class="section-header">
+        <h2>About Us</h2>
+        <p>Relawan pemadam kebakaran kota balikpapan adalah organisasi sosial yang dibentuk secara resmi oleh BPBD kota balikpapan.Wadah sukarelawan ini di bentuk untuk membantu petugas pemadam kebakaran dalam mempercepat respons penanganan serta memperkuat pencegahan bencana kebakaran di tingkat kelurahan dan kecamatan</p>
+      </div>
+      <div class="about-grid">
         <div class="about-image">
-          <div class="image-placeholder">
-            <img src="https://picsum.photos/600/400?random=1" alt="Volunteer activity">
+          <img src="damkar.jpg" alt="Tim Relawan Damkar Balikpapan" class="about-img">
+        </div>
+        <div class="about-text">
+          <h3>Tentang Kami</h3>
+          <p>Relawan Pemadam Kebakaran (Redkar) Kota Balikpapan merupakan organisasi kemasyarakatan yang bergerak di bidang penanggulangan kebakaran, penyelamatan (rescue), penanggulangan bencana, serta kegiatan sosial dan kemanusiaan. Dalam menjalankan tugasnya, Redkar berkomitmen memberikan pelayanan secara cepat, profesional, dan mengedepankan nilai-nilai kemanusiaan.</p>
+          <p>Selain aktif dalam penanganan kebakaran, Redkar juga berpartisipasi dalam kegiatan sosial seperti evakuasi korban kecelakaan, bantuan pada saat bencana, edukasi keselamatan kepada masyarakat, serta mendukung berbagai kegiatan sosial yang membutuhkan keterlibatan relawan.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-number">4+</span>
+              <span class="stat-label">Tahun Pengalaman</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">Balikpapan</span>
+              <span class="stat-label">Kota Asal</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="events" id="events">
-    <div class="container">
-      <h2 class="section-title">Acara Mendatang</h2>
-      <div class="events-grid">
-        <div class="event-card">
-          <div class="event-image">
-            <img src="https://picsum.photos/400/300?random=2" alt="Event 1">
-          </div>
-          <div class="event-info">
-            <span class="event-date">15 Des 2024</span>
-            <h3>Bazaar Fundraising</h3>
-            <p>Membantu menjuali dana untuk operasional rumah yatim</p>
-          </div>
-        </div>
-        <div class="event-card">
-          <div class="event-image">
-            <img src="https://picsum.photos/400/300?random=3" alt="Event 2">
-          </div>
-          <div class="event-info">
-            <span class="event-date">22 Des 2024</span>
-            <h3>Bimbel Bersama</h3>
-            <p>Bimbingan belajar untuk anak-anak yatim di setiap region</p>
-          </div>
-        </div>
-        <div class="event-card">
-          <div class="event-image">
-            <img src="https://picsum.photos/400/300?random=4" alt="Event 3">
-          </div>
-          <div class="event-info">
-            <span class="event-date">29 Des 2024</span>
-            <h3>Rutinan Kunjungan</h3>
-            <p>Kunjungan rumah serta distribusi perlengkapan</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <div class="container">
-      <h2 class="section-title">Daftar Jadi Volunteer</h2>
-      <form class="contact-form">
-        <div class="form-group">
-          <label for="name">Nama Lengkap</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="phone">No. Telepon</label>
-          <input type="tel" id="phone" name="phone" required>
-        </div>
-        <div class="form-group">
-          <label for="address">Alamat</label>
-          <textarea id="address" name="address" rows="3" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="experience">Pernas Volunteering</label>
-          <select id="experience" name="experience">
-            <option value="" disabled pilih>Pilih opsi</option>
-            <option value="baru">Baru Mulai</option>
-            <option value="pengalaman">Pernas</option>
-            <option value="aktif">Aktif</option>
-          </select>
-        </div>
-        <button type="submit" class="btn-submit">Kirim Formulir</button>
-      </form>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <p>&copy; 2024 Voluntaria - Yatim Mandiri. Semua Hak Dilindungi.</p>
-      <div class="social-links">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="damkar.jpg" alt="Lambang Damkar" class="logo-small">
+          <img src="relawandamkar.jpg" alt="Lambang Relawan" class="logo-small">
+          <span>Relawan Damkar</span>
+        </div>
+        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
       </div>
     </div>
   </footer>

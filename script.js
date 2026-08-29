@@ -1,76 +1,61 @@
-// Fungsi untuk animasi scroll smooth
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  });
-});
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
 
-// Fungsi untuk form submission
-const contactForm = document.querySelector('.contact-form');
-
-if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      address: document.getElementById('address').value,
-      experience: document.getElementById('experience').value
-    };
-    
-    // Simulasi pengiriman form
-    alert('Terima kasih ' + formData.name + '! Formulir pendaftaran volunteer berhasil dikirim.');
-    contactForm.reset();
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
   });
 }
 
-// Fungsi untuk menampilkan pesan saat hover event card
-document.querySelectorAll('.event-card').forEach(card => {
-  card.addEventListener('mouseenter', function() {
-    const date = this.querySelector('.event-date');
-    if (date) {
-      date.style.transform = 'scale(1.1)';
-      date.style.transition = 'transform 0.3s';
-    }
-  });
-  
-  card.addEventListener('mouseleave', function() {
-    const date = this.querySelector('.event-date');
-    if (date) {
-      date.style.transform = 'scale(1)';
-    }
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
   });
 });
 
-// Fungsi untuk menambahkan class active pada nav link saat scroll
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  if (email && password) {
+    alert('Terima kasih! Masuk berhasil. Selamat datang di Relawan Damkar.');
+    return false;
+  }
+  return false;
+}
+
+function handleDaftar(e) {
+  e.preventDefault();
+  const nama = document.getElementById('nama').value;
+  const email = document.getElementById('email').value;
+  const telepon = document.getElementById('telepon').value;
+  const alamat = document.getElementById('alamat').value;
+  const pengalaman = document.getElementById('pengalaman').value;
+  const dokumen = document.getElementById('dokumen').value;
+  if (nama && email && telepon && alamat && pengalaman && dokumen) {
+    alert('Terima kasih atas pendaftaran Anda, ' + nama + '! Data kami sudah diterima. Kami akan menghubungi Anda segera.');
+    document.getElementById('daftarForm').reset();
+    return false;
+  }
+  return false;
+}
+
 const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.nav-links a');
+const navAnchors = document.querySelectorAll('.nav-links a');
 
 window.addEventListener('scroll', () => {
   let current = '';
-  
   sections.forEach(section => {
-    const sectionTop = section.offsetTop;
+    const sectionTop = section.offsetTop - 100;
     const sectionHeight = section.clientHeight;
-    
-    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+    if (window.scrollY >= sectionTop) {
       current = section.getAttribute('id');
     }
   });
-  
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === `#${current}`) {
-      link.classList.add('active');
+  navAnchors.forEach(anchor => {
+    anchor.classList.remove('active');
+    if (anchor.getAttribute('href') === `#${current}`) {
+      anchor.classList.add('active');
     }
   });
 });
