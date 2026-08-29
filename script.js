@@ -28,7 +28,8 @@ function handleDaftar(e) {
   e.preventDefault();
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-  if (username && password) {
+  const telepon = document.getElementById('telepon').value;
+  if (username && password && telepon) {
     alert('Terima kasih atas pendaftaran Anda, ' + username + '! Akun Anda berhasil dibuat.');
     document.getElementById('daftarForm').reset();
     return false;
