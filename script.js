@@ -26,14 +26,10 @@ function handleLogin(e) {
 
 function handleDaftar(e) {
   e.preventDefault();
-  const nama = document.getElementById('nama').value;
-  const email = document.getElementById('email').value;
-  const telepon = document.getElementById('telepon').value;
-  const alamat = document.getElementById('alamat').value;
-  const pengalaman = document.getElementById('pengalaman').value;
-  const dokumen = document.getElementById('dokumen').value;
-  if (nama && email && telepon && alamat && pengalaman && dokumen) {
-    alert('Terima kasih atas pendaftaran Anda, ' + nama + '! Data kami sudah diterima. Kami akan menghubungi Anda segera.');
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  if (username && password) {
+    alert('Terima kasih atas pendaftaran Anda, ' + username + '! Akun Anda berhasil dibuat.');
     document.getElementById('daftarForm').reset();
     return false;
   }
