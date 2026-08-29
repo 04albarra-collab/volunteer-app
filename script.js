@@ -46,21 +46,20 @@ function handleLogin(e) {
 
 function handleDaftar(e) {
   e.preventDefault();
-  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const telepon = document.getElementById('telepon').value;
-  if (username && password && telepon) {
-    // Cek apakah username sudah terdaftar
-    const existingUser = localStorage.getItem(`verifikasi_${username}`);
+  if (email && password && telepon) {
+    // Cek apakah email sudah terdaftar
+    const existingUser = localStorage.getItem(`verifikasi_${email}`);
     if (existingUser) {
       alert('Akun sudah terdaftar!');
       return false;
     }
     // Simpan status verifikasi ke localStorage
-    localStorage.setItem(`verifikasi_${username}`, JSON.stringify({
+    localStorage.setItem(`verifikasi_${email}`, JSON.stringify({
       status: 'menunggu',
-      username: username,
-      email: 'redkarbalikpapan@gmail.com',
+      email: email,
       password: 'Redkar86.'
     }));
     alert('Akun berhasil dibuat! Silakan tunggu verifikasi dari operator.');
@@ -130,3 +129,68 @@ function cekOperatorLogin() {
 // Jalankan cek login saat halaman dimuat
 document.addEventListener('DOMContentLoaded', cekOperatorLogin);
 </script>
+
+// Fitur Op Mode - hanya aktif ketika operator login
+function toggleOpMode() {
+  const opMode = document.getElementById('op-mode');
+  const isLoggedIn = localStorage.getItem('operator_login') === 'true';
+  if (opMode) {
+    opMode.style.display = isLoggedIn ? 'block' : 'none';
+  }
+}
+
+// Hapus semua akun verifikasi dari localStorage
+function hapusSemuaAkun() {
+  if (confirm('Yakin ingin menghapus semua akun verifikasi?')) {
+    for (let i = 0; i < localStorage.length; i++) {
+      const kunci = localStorage.key(i);
+      if (kunci && kunci.startsWith('verifikasi_')) {
+        localStorage.removeItem(kunci);
+      }
+    }
+    alert('Semua akun verifikasi telah dihapus.');
+    toggleOpMode();
+    // Refresh verifikasi-anggota jika halaman terbuka
+    if (window.location.pathname.includes('verifikasi-anggota')) {
+      window.location.href = 'verifikasi-anggota.html';
+    }
+  }
+}
+
+// Reset password akun (membalik status ke awal/bersihkan password)
+function resetPasswordAkun() {
+  if (confirm('Yakin ingin mereset password untuk semua akun verifikasi?')) {
+    for (let i = 0; i < localStorage.length; i++) {
+      const kunci = localStorage.key(i);
+      if (kunci && kunci.startsWith('verifikasi_')) {
+        const data = JSON.parse(localStorage.getItem(kunci));
+        // Reset password ke default dan status ke pending
+        data.password = 'Redkar86.';
+        data.status = 'menunggu';
+        localStorage.setItem(kunci, JSON.stringify(data));
+    }
+    alert('Password akun verifikasi telah direset ke Redkar86.');
+    toggleOpMode();
+    // Refresh verifikasi-anggota jika halaman terbuka
+    if (window.location.pathname.includes('verifikasi-anggota')) {
+      window.location.href = 'verifikasi-anggota.html';
+    }
+  }
+}
+
+// Jalankan toggle op mode saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+  toggleOpMode();
+  
+  // Event listener untuk hapus semua akun
+  const hapusBtn = document.getElementById('hapus-semua-btn');
+  if (hapusBtn) {
+    hapusBtn.addEventListener('click', hapusSemuaAkun);
+  }
+  
+  // Event listener untuk reset password
+  const resetBtn = document.getElementById('reset-password-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', resetPasswordAkun);
+  }
+});
