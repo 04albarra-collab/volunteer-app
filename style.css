@@ -74,6 +74,14 @@ body {
   object-fit: cover;
 }
 
+.logo-damkar {
+  border: 2px solid #c0392b;
+}
+
+.logo-relawan {
+  border: 2px solid #2980b9;
+}
+
 .logo span {
   color: var(--white);
   font-weight: 700;
@@ -331,6 +339,14 @@ footer {
   height: 28px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.footer-logo .logo-damkar {
+  border: 2px solid #c0392b;
+}
+
+.footer-logo .logo-relawan {
+  border: 2px solid #2980b9;
 }
 
 .footer-content p {
