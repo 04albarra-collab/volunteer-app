@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Operator - Relawan Damkar</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icons">
+          <img src="merahmerah.jpg" alt="Lambang Relawan" class="logo-small logo-merah">
+          <img src="putih.jpg" alt="Lambang Putih" class="logo-small logo-putih">
+        </div>
+        <span>Relawan Damkar</span>
+      </a>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="operator-login.html">Operator</a></li>
+        <li><a href="login.html">Masuk</a></li>
+        <li><a href="daftar.html">Daftar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="form-logo">
+        <img src="merahmerah.jpg" alt="Lambang Relawan" class="logo-relawan">
+      </div>
+      <h2>Login Operator</h2>
+      <p class="form-subtitle">Akses halaman verifikasi anggota</p>
+      <form id="operatorLoginForm">
+        <div class="form-group">
+          <label for="operatorUsername">Username</label>
+          <input type="text" id="operatorUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="operatorPassword">Password</label>
+          <input type="password" id="operatorPassword" required>
+        </div>
+        <button type="submit" class="btn-submit">Login</button>
+      </form>
+      <p class="form-link">Bukan operator? <a href="login.html">Masuk sebagai anggota</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="merahmerah.jpg" alt="Lambang Relawan" class="logo-small logo-merah">
+          <span>Relawan Damkar</span>
+        </div>
+        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

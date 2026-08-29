@@ -84,3 +84,43 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+// Operator login credentials (simpan di localStorage)
+const OPERATOR_CREDENTIALS = {
+  username: 'operator',
+  password: 'operator123'
+};
+
+// Fungsi login operator
+function loginOperator(e) {
+  e.preventDefault();
+  const username = document.getElementById('operatorUsername').value;
+  const password = document.getElementById('operatorPassword').value;
+  
+  if (username === OPERATOR_CREDENTIALS.username && password === OPERATOR_CREDENTIALS.password) {
+    // Simpan status login operator ke localStorage
+    localStorage.setItem('operator_login', 'true');
+    alert('Login operator berhasil!');
+    window.location.href = 'verifikasi-anggota.html';
+  } else {
+    alert('Username atau password operator salah!');
+  }
+}
+
+// Cek apakah sudah login operator
+function cekOperatorLogin() {
+  const loginStatus = localStorage.getItem('operator_login');
+  if (loginStatus !== 'true') {
+    // Redirect ke login operator jika belum login
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks) {
+      const operatorLink = navLinks.querySelector('a[href="operator-login.html"]');
+      if (operatorLink) {
+        operatorLink.click();
+      }
+    }
+  }
+}
+
+// Jalankan cek login saat halaman dimuat
+document.addEventListener('DOMContentLoaded', cekOperatorLogin);
+</script>
