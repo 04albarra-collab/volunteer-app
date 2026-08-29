@@ -105,24 +105,64 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 6px;
   list-style: none;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.78);
   font-weight: 500;
-  font-size: 0.95rem;
-  padding: 10px 20px;
-  border-radius: 8px;
+  font-size: 0.92rem;
+  padding: 9px 16px;
+  border-radius: 10px;
   transition: all 0.3s;
+  border: 1.5px solid transparent;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
   color: var(--white);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Operator - outlined subtle */
+.nav-links li:nth-child(3) a {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-links li:nth-child(3) a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Masuk - accent outline */
+.nav-links li:nth-child(4) a {
+  border-color: rgba(78, 205, 196, 0.6);
+  color: var(--secondary);
+}
+
+.nav-links li:nth-child(4) a:hover {
+  background: rgba(78, 205, 196, 0.15);
+  color: var(--secondary);
+}
+
+/* Daftar - filled primary CTA */
+.nav-links li:nth-child(5) a {
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+  border-color: var(--primary);
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.35);
+}
+
+.nav-links li:nth-child(5) a:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 107, 107, 0.45);
 }
 
 /* Hero */
@@ -1117,6 +1157,13 @@ footer {
     font-size: 1.3rem;
     padding: 15px 30px;
     color: rgba(255, 255, 255, 0.9);
+  }
+
+  .nav-links li:nth-child(3) a,
+  .nav-links li:nth-child(4) a,
+  .nav-links li:nth-child(5) a {
+    width: 220px;
+    text-align: center;
   }
 
   .hero h1 {
