@@ -59,6 +59,7 @@ function handleDaftar(e) {
     // Simpan status verifikasi ke localStorage
     localStorage.setItem(`verifikasi_${email}`, JSON.stringify({
       status: 'menunggu',
+      username: email,
       email: email,
       password: 'Redkar86.'
     }));
@@ -111,24 +112,23 @@ function loginOperator(e) {
   }
 }
 
-// Cek apakah sudah login operator
+// Cek apakah sudah login operator (hanya untuk halaman verifikasi)
 function cekOperatorLogin() {
+  if (!window.location.pathname.includes('verifikasi-anggota')) return;
   const loginStatus = localStorage.getItem('operator_login');
   if (loginStatus !== 'true') {
-    // Redirect ke login operator jika belum login
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks) {
-      const operatorLink = navLinks.querySelector('a[href="operator-login.html"]');
-      if (operatorLink) {
-        operatorLink.click();
-      }
-    }
+    window.location.href = 'operator-login.html';
   }
 }
 
 // Jalankan cek login saat halaman dimuat
 document.addEventListener('DOMContentLoaded', cekOperatorLogin);
-</script>
+
+// Bind form login operator
+const operatorLoginForm = document.getElementById('operatorLoginForm');
+if (operatorLoginForm) {
+  operatorLoginForm.addEventListener('submit', loginOperator);
+}
 
 // Fitur Op Mode - hanya aktif ketika operator login
 function toggleOpMode() {
@@ -168,6 +168,7 @@ function resetPasswordAkun() {
         data.password = 'Redkar86.';
         data.status = 'menunggu';
         localStorage.setItem(kunci, JSON.stringify(data));
+      }
     }
     alert('Password akun verifikasi telah direset ke Redkar86.');
     toggleOpMode();
