@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Relawan Damkar</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icons"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"></div>
+        <span>Relawan Damkar</span>
+      </a>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="#" id="logoutLink" class="nav-logout">Keluar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="dash">
+    <div class="container">
+
+      <div class="dash-header">
+        <div class="dash-welcome">
+          <p class="dash-eyebrow">Portal Relawan</p>
+          <h1>Halo, <span id="welcomeName">Relawan</span> 👋</h1>
+          <p class="dash-sub">Berikut adalah profil dan status verifikasi akun Anda.</p>
+        </div>
+        <div class="dash-status-pill" id="dashStatusPill">
+          <span class="dot"></span>
+          <span id="dashStatusText">Memuat...</span>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-profile">
+          <div class="dash-avatar">
+            <span id="avatarInitial">R</span>
+            <span class="avatar-ring" id="avatarRing"></span>
+          </div>
+          <h2 id="profileName">-</h2>
+          <p id="profileEmail" class="dash-email">-</p>
+          <div class="dash-steps">
+            <div class="step done">
+              <span class="step-ic">&#128221;</span>
+              <div>
+                <strong>Daftar</strong>
+                <small>Data dikirim</small>
+              </div>
+            </div>
+            <div class="step" id="stepVerify">
+              <span class="step-ic">&#128273;</span>
+              <div>
+                <strong>Verifikasi Operator</strong>
+                <small id="stepVerifySub">Menunggu tinjauan</small>
+              </div>
+            </div>
+            <div class="step" id="stepActive">
+              <span class="step-ic">&#128640;</span>
+              <div>
+                <strong>Aktif Bertugas</strong>
+                <small>Siap membantu</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-info">
+          <div class="info-card">
+            <span class="info-ic">&#9993;</span>
+            <div>
+              <small>Email</small>
+              <p id="detailEmail">-</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-ic">&#128241;</span>
+            <div>
+              <small>Nomor Telepon</small>
+              <p id="detailTelepon">-</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-ic">&#128197;</span>
+            <div>
+              <small>Waktu Pendaftaran</small>
+              <p id="detailWaktu">-</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-ic">&#127942;</span>
+            <div>
+              <small>Status Akun</small>
+              <p id="detailStatus">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-banner" id="statusBanner">
+        <span class="banner-ic" id="bannerIc">&#9203;</span>
+        <div>
+          <strong id="bannerTitle">Memuat...</strong>
+          <p id="bannerText">Mohon tunggu sebentar.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><span>Relawan Damkar</span></div>
+        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const emailLogin = localStorage.getItem('user_login');
+      if (!emailLogin) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const data = localStorage.getItem(`verifikasi_${emailLogin}`);
+      if (!data) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const user = JSON.parse(data);
+      const status = user.status || 'menunggu';
+
+      const statusMap = {
+        'menunggu': {
+          text: 'Menunggu Verifikasi',
+          cls: 'is-waiting',
+          bannerIc: '&#9203;',
+          bannerTitle: 'Sedang Diproses',
+          bannerText: 'Akun Anda sedang dalam peninjauan oleh operator. Kami akan segera menginformasikan begitu verifikasi selesai.',
+          stepSub: 'Menunggu tinjauan'
+        },
+        'terverifikasi': {
+          text: 'Terverifikasi',
+          cls: 'is-verified',
+          bannerIc: '&#9989;',
+          bannerTitle: 'Akun Terverifikasi',
+          bannerText: 'Selamat! Akun Anda telah diverifikasi oleh operator. Anda resmi menjadi bagian dari Relawan Damkar Balikpapan.',
+          stepSub: 'Disetujui'
+        },
+        'ditolak': {
+          text: 'Ditolak',
+          cls: 'is-rejected',
+          bannerIc: '&#10060;',
+          bannerTitle: 'Pendaftaran Ditolak',
+          bannerText: 'Maaf, pendaftaran Anda ditolak oleh operator. Silakan hubungi admin untuk informasi lebih lanjut.',
+          stepSub: 'Ditolak'
+        },
+        'nonaktif': {
+          text: 'Nonaktif',
+          cls: 'is-inactive',
+          bannerIc: '&#128683;',
+          bannerTitle: 'Akun Dinonaktifkan',
+          bannerText: 'Akun Anda telah dinonaktifkan oleh operator sehingga tidak dapat login. Silakan hubungi admin untuk mengaktifkan kembali.',
+          stepSub: 'Dinonaktifkan'
+        }
+      };
+      const info = statusMap[status] || statusMap['menunggu'];
+
+      const name = user.username || emailLogin;
+      const initial = (name.charAt(0) || 'R').toUpperCase();
+
+      document.getElementById('welcomeName').textContent = name.split('@')[0];
+      document.getElementById('profileName').textContent = name;
+      document.getElementById('profileEmail').textContent = user.email || emailLogin;
+      document.getElementById('detailEmail').textContent = user.email || '-';
+      document.getElementById('detailTelepon').textContent = user.telepon || '-';
+      document.getElementById('detailWaktu').textContent = user.waktu || '-';
+      document.getElementById('detailStatus').textContent = info.text;
+      document.getElementById('avatarInitial').textContent = initial;
+
+      const pill = document.getElementById('dashStatusPill');
+      pill.classList.add(info.cls);
+      document.getElementById('dashStatusText').textContent = info.text;
+
+      const ring = document.getElementById('avatarRing');
+      ring.classList.add(info.cls);
+
+      const banner = document.getElementById('statusBanner');
+      banner.classList.add(info.cls);
+      document.getElementById('bannerIc').innerHTML = info.bannerIc;
+      document.getElementById('bannerTitle').textContent = info.bannerTitle;
+      document.getElementById('bannerText').textContent = info.bannerText;
+
+      if (status === 'terverifikasi') {
+        document.getElementById('stepVerify').classList.add('done');
+        document.getElementById('stepActive').classList.add('done');
+        document.getElementById('stepVerifySub').textContent = info.stepSub;
+      } else if (status === 'ditolak' || status === 'nonaktif') {
+        document.getElementById('stepVerify').classList.add('rejected');
+        document.getElementById('stepVerifySub').textContent = info.stepSub;
+      } else {
+        document.getElementById('stepVerifySub').textContent = info.stepSub;
+      }
+
+    });
+  </script>
+</body>
+</html>

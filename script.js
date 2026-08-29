@@ -7,11 +7,55 @@ if (hamburger && navLinks) {
   });
 }
 
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('active');
+// Perbarui navigasi berdasarkan status login (berlaku untuk semua halaman)
+function updateNav() {
+  if (!navLinks) return;
+
+  const path = window.location.pathname.split('/').pop() || 'index.html';
+  const isOperator = localStorage.getItem('operator_login') === 'true';
+  const isUser = !!localStorage.getItem('user_login');
+
+  const items = [
+    { href: 'index.html', label: 'Beranda' },
+    { href: 'about.html', label: 'About Us' }
+  ];
+
+  if (isOperator) {
+    items.push({ href: 'verifikasi-anggota.html', label: 'Verifikasi Anggota' });
+    items.push({ href: '#', label: 'Keluar', logout: 'operator' });
+  } else if (isUser) {
+    items.push({ href: 'dashboard.html', label: 'Dashboard' });
+    items.push({ href: '#', label: 'Keluar', logout: 'user' });
+  } else {
+    items.push({ href: 'login.html', label: 'Masuk' });
+    items.push({ href: 'daftar.html', label: 'Daftar' });
+  }
+
+  navLinks.innerHTML = items.map(it => {
+    if (it.logout) return `<li><a href="#" id="logoutNav" class="nav-logout" data-type="${it.logout}">Keluar</a></li>`;
+    const active = it.href === path ? ' class="active"' : '';
+    return `<li><a href="${it.href}"${active}>${it.label}</a></li>`;
+  }).join('');
+
+  const logoutNav = document.getElementById('logoutNav');
+  if (logoutNav) {
+    logoutNav.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (logoutNav.dataset.type === 'operator') {
+        localStorage.removeItem('operator_login');
+      } else {
+        localStorage.removeItem('user_login');
+      }
+      window.location.href = 'index.html';
+    });
+  }
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('active'));
   });
-});
+}
+
+document.addEventListener('DOMContentLoaded', updateNav);
 
 function togglePassword(fieldId, btn) {
   const field = document.getElementById(fieldId);
@@ -29,16 +73,22 @@ function handleLogin(e) {
   const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
   if (email && password) {
-    // Cek status verifikasi dari localStorage
     const dataVerifikasi = localStorage.getItem(`verifikasi_${email}`);
-    if (dataVerifikasi) {
-      const verifikasi = JSON.parse(dataVerifikasi);
-      if (verifikasi.status === 'menunggu') {
-        alert('Sedang menunggu verifikasi dari operator...');
-        return false;
-      }
+    if (!dataVerifikasi) {
+      alert('Akun tidak ditemukan. Silakan daftar terlebih dahulu.');
+      return false;
     }
-    alert('Terima kasih! Masuk berhasil. Selamat datang di Relawan Damkar.');
+    const verifikasi = JSON.parse(dataVerifikasi);
+    if (verifikasi.status === 'nonaktif') {
+      alert('Akun Anda telah dinonaktifkan oleh operator.');
+      return false;
+    }
+    if (verifikasi.password && verifikasi.password !== password) {
+      alert('Password salah!');
+      return false;
+    }
+    localStorage.setItem('user_login', email);
+    window.location.href = 'dashboard.html';
     return false;
   }
   return false;
@@ -56,17 +106,18 @@ function handleDaftar(e) {
       alert('Akun sudah terdaftar!');
       return false;
     }
-    // Simpan status verifikasi ke localStorage
+    // Simpan akun relawan ke localStorage (status menunggu verifikasi operator)
     localStorage.setItem(`verifikasi_${email}`, JSON.stringify({
       status: 'menunggu',
       username: email,
       email: email,
-      password: 'Redkar86.',
+      telepon: telepon,
+      password: password,
       waktu: new Date().toLocaleString('id-ID')
     }));
-    alert('Akun berhasil dibuat! Silakan tunggu verifikasi dari operator.');
-    document.getElementById('daftarForm').reset();
-    window.location.href = 'login.html';
+    localStorage.setItem('user_login', email);
+    alert('Akun berhasil dibuat! Mengalihkan ke dashboard...');
+    window.location.href = 'dashboard.html';
     return false;
   }
   return false;
