@@ -1,10 +1,11 @@
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBU0JDv7E1d4NQH719-SHKYe2rxftMmNYY",
+  authDomain: "redkarbpn-ef14a.firebaseapp.com",
+  projectId: "redkarbpn-ef14a",
+  storageBucket: "redkarbpn-ef14a.firebasestorage.app",
+  messagingSenderId: "287638634576",
+  appId: "1:287638634576:web:c36aa9ef84de9c68015155",
+  measurementId: "G-V8H94L4N16"
 };
 
 firebase.initializeApp(firebaseConfig);
