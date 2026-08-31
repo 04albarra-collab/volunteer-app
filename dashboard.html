@@ -131,96 +131,76 @@
     </div>
   </footer>
 
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const emailLogin = localStorage.getItem('user_login');
-      if (!emailLogin) {
-        window.location.href = 'login.html';
-        return;
-      }
-
-      const data = localStorage.getItem(`verifikasi_${emailLogin}`);
-      if (!data) {
-        window.location.href = 'login.html';
-        return;
-      }
-
-      const user = JSON.parse(data);
-      const status = user.status || 'menunggu';
-
-      const statusMap = {
-        'menunggu': {
-          text: 'Menunggu Verifikasi',
-          cls: 'is-waiting',
-          bannerIc: '&#9203;',
-          bannerTitle: 'Sedang Diproses',
-          bannerText: 'Akun Anda sedang dalam peninjauan oleh operator. Kami akan segera menginformasikan begitu verifikasi selesai.',
-          stepSub: 'Menunggu tinjauan'
-        },
-        'terverifikasi': {
-          text: 'Terverifikasi',
-          cls: 'is-verified',
-          bannerIc: '&#9989;',
-          bannerTitle: 'Akun Terverifikasi',
-          bannerText: 'Selamat! Akun Anda telah diverifikasi oleh operator. Anda resmi menjadi bagian dari Relawan Damkar Balikpapan.',
-          stepSub: 'Disetujui'
-        },
-        'ditolak': {
-          text: 'Ditolak',
-          cls: 'is-rejected',
-          bannerIc: '&#10060;',
-          bannerTitle: 'Pendaftaran Ditolak',
-          bannerText: 'Maaf, pendaftaran Anda ditolak oleh operator. Silakan hubungi admin untuk informasi lebih lanjut.',
-          stepSub: 'Ditolak'
-        },
-        'nonaktif': {
-          text: 'Nonaktif',
-          cls: 'is-inactive',
-          bannerIc: '&#128683;',
-          bannerTitle: 'Akun Dinonaktifkan',
-          bannerText: 'Akun Anda telah dinonaktifkan oleh operator sehingga tidak dapat login. Silakan hubungi admin untuk mengaktifkan kembali.',
-          stepSub: 'Dinonaktifkan'
+      auth.onAuthStateChanged(user => {
+        if (!user) {
+          window.location.href = 'login.html';
+          return;
         }
-      };
-      const info = statusMap[status] || statusMap['menunggu'];
+        db.collection('users').doc(user.uid).get().then(doc => {
+          if (!doc.exists) {
+            window.location.href = 'login.html';
+            return;
+          }
+          const userData = doc.data();
+          const status = userData.status || 'menunggu';
+          const name = userData.username || userData.email;
+          const initial = (name.charAt(0) || 'R').toUpperCase();
 
-      const name = user.username || emailLogin;
-      const initial = (name.charAt(0) || 'R').toUpperCase();
+          document.getElementById('welcomeName').textContent = name.split('@')[0];
+          document.getElementById('profileName').textContent = name;
+          document.getElementById('profileEmail').textContent = userData.email || '-';
+          document.getElementById('detailEmail').textContent = userData.email || '-';
+          document.getElementById('detailTelepon').textContent = userData.telepon || '-';
+          document.getElementById('detailWaktu').textContent = userData.waktu || '-';
 
-      document.getElementById('welcomeName').textContent = name.split('@')[0];
-      document.getElementById('profileName').textContent = name;
-      document.getElementById('profileEmail').textContent = user.email || emailLogin;
-      document.getElementById('detailEmail').textContent = user.email || '-';
-      document.getElementById('detailTelepon').textContent = user.telepon || '-';
-      document.getElementById('detailWaktu').textContent = user.waktu || '-';
-      document.getElementById('detailStatus').textContent = info.text;
-      document.getElementById('avatarInitial').textContent = initial;
+          const statusMap = {
+            'menunggu': { text: 'Menunggu Verifikasi', cls: 'is-waiting', bannerIc: '&#9203;', bannerTitle: 'Sedang Diproses', bannerText: 'Akun Anda sedang dalam peninjauan oleh operator. Kami akan segera menginformasikan begitu verifikasi selesai.', stepSub: 'Menunggu tinjauan' },
+            'terverifikasi': { text: 'Terverifikasi', cls: 'is-verified', bannerIc: '&#9989;', bannerTitle: 'Akun Terverifikasi', bannerText: 'Selamat! Akun Anda telah diverifikasi oleh operator. Anda resmi menjadi bagian dari Relawan Damkar Balikpapan.', stepSub: 'Disetujui' },
+            'ditolak': { text: 'Ditolak', cls: 'is-rejected', bannerIc: '&#10060;', bannerTitle: 'Pendaftaran Ditolak', bannerText: 'Maaf, pendaftaran Anda ditolak oleh operator. Silakan hubungi admin untuk informasi lebih lanjut.', stepSub: 'Ditolak' },
+            'nonaktif': { text: 'Nonaktif', cls: 'is-inactive', bannerIc: '&#128683;', bannerTitle: 'Akun Dinonaktifkan', bannerText: 'Akun Anda telah dinonaktifkan oleh operator sehingga tidak dapat login. Silakan hubungi admin untuk mengaktifkan kembali.', stepSub: 'Dinonaktifkan' }
+          };
+          const info = statusMap[status] || statusMap['menunggu'];
 
-      const pill = document.getElementById('dashStatusPill');
-      pill.classList.add(info.cls);
-      document.getElementById('dashStatusText').textContent = info.text;
+          document.getElementById('detailStatus').textContent = info.text;
+          document.getElementById('avatarInitial').textContent = initial;
 
-      const ring = document.getElementById('avatarRing');
-      ring.classList.add(info.cls);
+          const pill = document.getElementById('dashStatusPill');
+          pill.classList.add(info.cls);
+          document.getElementById('dashStatusText').textContent = info.text;
 
-      const banner = document.getElementById('statusBanner');
-      banner.classList.add(info.cls);
-      document.getElementById('bannerIc').innerHTML = info.bannerIc;
-      document.getElementById('bannerTitle').textContent = info.bannerTitle;
-      document.getElementById('bannerText').textContent = info.bannerText;
+          const ring = document.getElementById('avatarRing');
+          ring.classList.add(info.cls);
 
-      if (status === 'terverifikasi') {
-        document.getElementById('stepVerify').classList.add('done');
-        document.getElementById('stepActive').classList.add('done');
-        document.getElementById('stepVerifySub').textContent = info.stepSub;
-      } else if (status === 'ditolak' || status === 'nonaktif') {
-        document.getElementById('stepVerify').classList.add('rejected');
-        document.getElementById('stepVerifySub').textContent = info.stepSub;
-      } else {
-        document.getElementById('stepVerifySub').textContent = info.stepSub;
-      }
+          const banner = document.getElementById('statusBanner');
+          banner.classList.add(info.cls);
+          document.getElementById('bannerIc').innerHTML = info.bannerIc;
+          document.getElementById('bannerTitle').textContent = info.bannerTitle;
+          document.getElementById('bannerText').textContent = info.bannerText;
 
+          if (status === 'terverifikasi') {
+            document.getElementById('stepVerify').classList.add('done');
+            document.getElementById('stepActive').classList.add('done');
+            document.getElementById('stepVerifySub').textContent = info.stepSub;
+          } else if (status === 'ditolak' || status === 'nonaktif') {
+            document.getElementById('stepVerify').classList.add('rejected');
+            document.getElementById('stepVerifySub').textContent = info.stepSub;
+          } else {
+            document.getElementById('stepVerifySub').textContent = info.stepSub;
+          }
+        });
+      });
+
+      document.getElementById('logoutLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        auth.signOut();
+        window.location.href = 'index.html';
+      });
     });
   </script>
 </body>
