@@ -12,6 +12,34 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+// ===== Akun operator default — otomatis terbaca di Firestore =====
+// Ganti email ini kalau mau ganti operator. Perbandingan case-insensitive.
+const DEFAULT_OPERATOR_EMAIL = 'redkarbalikpapan@gmail.com';
+
+function isDefaultOperatorEmail(email) {
+  return !!email && email.trim().toLowerCase() === DEFAULT_OPERATOR_EMAIL.toLowerCase();
+}
+
+function isOperatorUser(user, firestoreData) {
+  if (!user) return false;
+  if (isDefaultOperatorEmail(user.email)) return true;
+  return !!(firestoreData && firestoreData.isOperator);
+}
+
+// Pastikan dokumen Firestore untuk operator default selalu ada & bertanda isOperator:true
+// sehingga "terbaca otomatis" di database walau belum pernah dibuat manual.
+function ensureOperatorDoc(user) {
+  if (!user || !isDefaultOperatorEmail(user.email)) return Promise.resolve(false);
+  const waktu = new Date().toLocaleString('id-ID');
+  return db.collection('users').doc(user.uid).set({
+    email: user.email,
+    status: 'terverifikasi',
+    waktu: waktu,
+    isOperator: true,
+    isDefaultOperator: true
+  }, { merge: true }).then(() => true).catch(() => true);
+}
+
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 
@@ -37,43 +65,58 @@ function updateNav() {
   const path = window.location.pathname.split('/').pop() || 'index.html';
 
   auth.onAuthStateChanged(user => {
-    const isOperator = user && user.email === 'OPERATOR_EMAIL';
-    const isUser = !!user && !isOperator;
+    const render = (isOperator) => {
+      const isUser = !!user && !isOperator;
 
-    const items = [
-      { href: 'index.html', label: 'Beranda' },
-      { href: 'about.html', label: 'About Us' }
-    ];
+      const items = [
+        { href: 'index.html', label: 'Beranda' },
+        { href: 'about.html', label: 'About Us' }
+      ];
 
-    if (isOperator) {
-      items.push({ href: 'verifikasi-anggota.html', label: 'Verifikasi Anggota' });
-      items.push({ href: '#', label: 'Keluar', logout: 'true' });
-    } else if (isUser) {
-      items.push({ href: 'dashboard.html', label: 'Dashboard' });
-      items.push({ href: '#', label: 'Keluar', logout: 'true' });
-    } else {
-      items.push({ href: 'login.html', label: 'Masuk' });
-      items.push({ href: 'daftar.html', label: 'Daftar' });
-    }
+      if (isOperator) {
+        items.push({ href: 'verifikasi-anggota.html', label: 'Verifikasi Anggota' });
+        items.push({ href: '#', label: 'Keluar', logout: 'true' });
+      } else if (isUser) {
+        items.push({ href: 'dashboard.html', label: 'Dashboard' });
+        items.push({ href: '#', label: 'Keluar', logout: 'true' });
+      } else {
+        items.push({ href: 'login.html', label: 'Masuk' });
+        items.push({ href: 'daftar.html', label: 'Daftar' });
+      }
 
-    navLinks.innerHTML = items.map(it => {
-      if (it.logout) return `<li><a href="#" id="logoutNav" class="nav-logout">Keluar</a></li>`;
-      const active = it.href === path ? ' class="active"' : '';
-      return `<li><a href="${it.href}"${active}>${it.label}</a></li>`;
-    }).join('');
+      navLinks.innerHTML = items.map(it => {
+        if (it.logout) return `<li><a href="#" id="logoutNav" class="nav-logout">Keluar</a></li>`;
+        const active = it.href === path ? ' class="active"' : '';
+        return `<li><a href="${it.href}"${active}>${it.label}</a></li>`;
+      }).join('');
 
-    const logoutNav = document.getElementById('logoutNav');
-    if (logoutNav) {
-      logoutNav.addEventListener('click', function (e) {
-        e.preventDefault();
-        auth.signOut();
-        window.location.href = 'index.html';
+      const logoutNav = document.getElementById('logoutNav');
+      if (logoutNav) {
+        logoutNav.addEventListener('click', function (e) {
+          e.preventDefault();
+          auth.signOut();
+          window.location.href = 'index.html';
+        });
+      }
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('active'));
       });
-    }
+    };
 
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => navLinks.classList.remove('active'));
-    });
+    if (!user) {
+      render(false);
+      return;
+    }
+    // Operator default langsung dikenali tanpa perlu cek Firestore dulu,
+    // sekaligus pastikan dokumennya ada di database.
+    if (isDefaultOperatorEmail(user.email)) {
+      ensureOperatorDoc(user).finally(() => render(true));
+      return;
+    }
+    db.collection('users').doc(user.uid).get()
+      .then(doc => render(isOperatorUser(user, doc.exists ? doc.data() : null)))
+      .catch(() => render(false));
   });
 }
 
@@ -87,16 +130,27 @@ function handleLogin(e) {
     auth.signInWithEmailAndPassword(email, password)
       .then(() => {
         const user = auth.currentUser;
+        // Operator default: pastikan dokumennya ada lalu arahkan ke halaman operator
+        if (isDefaultOperatorEmail(user.email)) {
+          ensureOperatorDoc(user).finally(() => {
+            window.location.href = 'verifikasi-anggota.html';
+          });
+          return;
+        }
         db.collection('users').doc(user.uid).get()
           .then(doc => {
             if (doc.exists) {
               const data = doc.data();
-              if (data.status === 'nonaktif') {
+              if (data.isOperator) {
+                window.location.href = 'verifikasi-anggota.html';
+              } else if (data.status === 'nonaktif') {
                 alert('Akun Anda telah dinonaktifkan oleh operator.');
                 auth.signOut();
               } else {
                 window.location.href = 'dashboard.html';
               }
+            } else {
+              window.location.href = 'dashboard.html';
             }
           })
           .catch(() => {
@@ -113,9 +167,15 @@ function handleLogin(e) {
 
 function handleDaftar(e) {
   e.preventDefault();
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const telepon = document.getElementById('telepon').value;
+  // Cegah email operator default didaftarkan sebagai anggota biasa
+  if (isDefaultOperatorEmail(email)) {
+    alert('Email ini adalah akun operator. Silakan masuk lewat halaman Operator.');
+    window.location.href = 'operator-login.html';
+    return false;
+  }
   if (email && password && telepon) {
   const waktu = new Date().toLocaleString('id-ID');
     auth.createUserWithEmailAndPassword(email, password)
@@ -146,43 +206,61 @@ function handleDaftar(e) {
 
 function loginOperator(e) {
   e.preventDefault();
-  const email = document.getElementById('operatorEmail').value;
+  const email = document.getElementById('operatorEmail').value.trim();
   const password = document.getElementById('operatorPassword').value;
 
   if (email && password) {
+    // Hanya email operator default yang boleh lewat form ini
+    if (!isDefaultOperatorEmail(email)) {
+      alert('Email ini bukan akun operator.\nOperator default: ' + DEFAULT_OPERATOR_EMAIL);
+      return false;
+    }
     auth.signInWithEmailAndPassword(email, password)
       .then(result => {
-        db.collection('users').doc(result.user.uid).get()
-          .then(doc => {
-            if (doc.exists && doc.data().isOperator) {
-              alert('Login operator berhasil!');
-              window.location.href = 'verifikasi-anggota.html';
-            } else {
-              alert('Akun ini bukan akun operator.');
-              auth.signOut();
-            }
-          })
-          .catch(() => {
-            alert('Data operator tidak ditemukan.');
-            auth.signOut();
-          });
+        // Otomatis buat/perbarui dokumen operator di Firestore,
+        // jadi walau belum ada di database langsung terbaca sebagai operator.
+        return ensureOperatorDoc(result.user);
+      })
+      .then(() => {
+        alert('Login operator berhasil!');
+        window.location.href = 'verifikasi-anggota.html';
       })
       .catch(err => {
-        alert('Username atau password operator salah!');
+        if (err && err.code && err.code.startsWith('auth/')) {
+          alert('Username atau password operator salah! Pastikan akun ' + DEFAULT_OPERATOR_EMAIL + ' sudah dibuat di Firebase Authentication.');
+        } else {
+          alert('Gagal login operator: ' + (err && err.message ? err.message : err));
+          auth.signOut();
+        }
       });
   }
   return false;
 }
+
+// Otomatis sambungkan form operator (sebelumnya form tidak punya listener sehingga tombol Login tidak bereaksi)
+document.addEventListener('DOMContentLoaded', function () {
+  const opForm = document.getElementById('operatorLoginForm');
+  if (opForm) {
+    opForm.addEventListener('submit', loginOperator);
+    // Isi otomatis email default biar operator tinggal isi password
+    const emailField = document.getElementById('operatorEmail');
+    if (emailField && !emailField.value) emailField.value = DEFAULT_OPERATOR_EMAIL;
+  }
+});
 
 function cekOperatorLogin() {
   if (!window.location.pathname.includes('verifikasi-anggota')) return;
   auth.onAuthStateChanged(user => {
     if (!user) {
       window.location.href = 'operator-login.html';
+    } else if (isDefaultOperatorEmail(user.email)) {
+      // Operator default selalu lolos, sambil pastikan dokumennya ada
+      ensureOperatorDoc(user);
     } else {
       db.collection('users').doc(user.uid).get()
         .then(doc => {
           if (!doc.exists || !doc.data().isOperator) {
+            alert('Akun ini bukan akun operator.');
             auth.signOut();
             window.location.href = 'operator-login.html';
           }
@@ -198,6 +276,11 @@ function toggleOpMode() {
   if (!opMode) return;
   auth.onAuthStateChanged(user => {
     if (user) {
+      if (isDefaultOperatorEmail(user.email)) {
+        ensureOperatorDoc(user);
+        opMode.style.display = 'block';
+        return;
+      }
       db.collection('users').doc(user.uid).get().then(doc => {
         opMode.style.display = (doc.exists && doc.data().isOperator) ? 'block' : 'none';
       });
@@ -249,6 +332,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const resetBtn = document.getElementById('reset-password-btn');
   if (resetBtn) resetBtn.addEventListener('click', resetPasswordAkun);
+
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) logoutBtn.addEventListener('click', function () {
+    auth.signOut().finally(() => { window.location.href = 'index.html'; });
+  });
 });
 
 const STATUS_OPTIONS = [
@@ -281,7 +369,10 @@ function renderMembers() {
   if (!listEl) return;
 
   db.collection('users').orderBy('waktu', 'desc').get().then(snapshot => {
-    const members = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    // Sembunyikan semua operator (termasuk operator default) dari daftar anggota
+    const members = snapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .filter(m => !m.isOperator && !isDefaultOperatorEmail(m.email));
 
     document.getElementById('statTotal').textContent = members.length;
     document.getElementById('statMenunggu').textContent = members.filter(m => m.status === 'menunggu').length;

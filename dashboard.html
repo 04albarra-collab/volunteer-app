@@ -148,6 +148,11 @@
             return;
           }
           const userData = doc.data();
+          // Operator (termasuk operator default) jangan tampil di dashboard anggota
+          if (userData.isOperator || (user.email && user.email.toLowerCase() === 'redkarbalikpapan@gmail.com')) {
+            window.location.href = 'verifikasi-anggota.html';
+            return;
+          }
           const status = userData.status || 'menunggu';
           const name = userData.username || userData.email;
           const initial = (name.charAt(0) || 'R').toUpperCase();
