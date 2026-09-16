@@ -63,13 +63,34 @@
         <div class="op-stat off"><span id="statNonaktif">0</span><small>Nonaktif</small></div>
       </div>
 
-      <div class="verifikasi-section">
-        <h2>Daftar Anggota</h2>
-        <p class="sub">Kelola setiap anggota yang mendaftar di bawah ini.</p>
-        <div id="member-list" class="member-list">
-          <!-- Daftar dimuat oleh JavaScript -->
+        <div class="verifikasi-section">
+          <div class="verifikasi-head">
+            <div>
+              <h2>Daftar Anggota</h2>
+              <p class="sub">Kelola setiap anggota yang mendaftar di bawah ini.</p>
+            </div>
+            <p class="filter-result" id="filter-result">Memuat data...</p>
+          </div>
+          <div class="filter-toolbar">
+            <div class="filter-row" role="tablist" aria-label="Filter status anggota">
+              <button class="filter-btn active" data-filter="semua" role="tab" aria-selected="true"><span class="filter-ic">📋</span>Semua<span class="filter-count" id="count-semua">0</span></button>
+              <button class="filter-btn" data-filter="menunggu" role="tab" aria-selected="false"><span class="filter-dot dot-wait"></span>Menunggu<span class="filter-count" id="count-menunggu">0</span></button>
+              <button class="filter-btn" data-filter="terverifikasi" role="tab" aria-selected="false"><span class="filter-dot dot-ok"></span>Terverifikasi<span class="filter-count" id="count-terverifikasi">0</span></button>
+              <button class="filter-btn" data-filter="ditolak" role="tab" aria-selected="false"><span class="filter-dot dot-reject"></span>Ditolak<span class="filter-count" id="count-ditolak">0</span></button>
+              <button class="filter-btn" data-filter="nonaktif" role="tab" aria-selected="false"><span class="filter-dot dot-off"></span>Nonaktif<span class="filter-count" id="count-nonaktif">0</span></button>
+            </div>
+            <div class="filter-tools">
+              <label class="filter-search">
+                <span class="search-ic">🔍</span>
+                <input type="search" id="member-search" placeholder="Cari nama, email, atau telepon..." autocomplete="off">
+                <button type="button" id="search-clear" class="search-clear" aria-label="Hapus pencarian" hidden>✕</button>
+              </label>
+            </div>
+          </div>
+          <div id="member-list" class="member-list">
+            <!-- Daftar dimuat oleh JavaScript -->
+          </div>
         </div>
-      </div>
 
     </div>
   </div>
