@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isDefaultOperator() {
+      return signedIn()
+        && request.auth.token.email == 'redkarbalikpapan@gmail.com';
+    }
+
+    function callerIsOperator() {
+      return isDefaultOperator() || (signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isOperator == true);
+    }
+
+    function ownDoc(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      // Baca: hanya dokumen milik sendiri atau operator.
+      // (Sebelumnya semua user login bisa membaca semua data anggota.)
+      allow read: if ownDoc(uid) || callerIsOperator();
+
+      // Daftar: hanya boleh buat dokumen milik sendiri,
+      // dan tidak boleh langsung mendaftar sebagai operator
+      // (kecuali akun operator default untuk dokumennya sendiri)
+      allow create: if ownDoc(uid)
+        && request.resource.data.email is string
+        && (request.resource.data.isOperator == false
+          || (isDefaultOperator() && request.resource.data.isOperator == true));
+
+      // User boleh edit profilnya sendiri (username/telepon) TAPI:
+      // - tidak boleh mengubah status, isOperator, atau email miliknya
+      // Operator boleh mengubah apa pun (verifikasi, nonaktifkan, hapus, dll)
+      allow update: if (ownDoc(uid)
+          && request.resource.data.status == resource.data.status
+          && request.resource.data.isOperator == resource.data.isOperator
+          && request.resource.data.email == resource.data.email)
+        || callerIsOperator();
+
+      allow delete: if callerIsOperator();
+    }
+  }
+}

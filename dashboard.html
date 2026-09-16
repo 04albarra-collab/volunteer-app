@@ -111,6 +111,25 @@
         </div>
       </div>
 
+      <div class="profile-edit">
+        <div class="profile-edit-head">
+          <span class="info-ic">✏️</span>
+          <div>
+            <h2>Kustomisasi Profil</h2>
+            <p>Nama ini tampil di dashboard dan daftar anggota. Login tetap pakai Gmail.</p>
+          </div>
+        </div>
+        <form id="editNameForm" novalidate>
+          <div class="form-group">
+            <label for="displayName">Nama tampilan</label>
+            <input type="text" id="displayName" maxlength="30" placeholder="cth: Budi Santoso" autocomplete="nickname">
+            <small>3–30 karakter: huruf, angka, spasi, titik, strip.</small>
+            <p class="field-error" id="displayNameError" hidden></p>
+          </div>
+          <button type="submit" class="btn-submit profile-save-btn" id="saveNameBtn">Simpan Nama</button>
+        </form>
+      </div>
+
       <div class="status-banner" id="statusBanner">
         <span class="banner-ic" id="bannerIc">&#9203;</span>
         <div>
@@ -144,7 +163,9 @@
         }
         db.collection('users').doc(user.uid).get().then(doc => {
           if (!doc.exists) {
-            window.location.href = 'login.html';
+            auth.signOut().finally(() => {
+              window.location.href = 'login.html';
+            });
             return;
           }
           const userData = doc.data();
