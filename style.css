@@ -43,6 +43,8 @@
 }
 
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+/* kunci geser kanan-kiri di hape; clip (bukan hidden) agar navbar sticky tetap jalan */
+html, body { overflow-x: hidden; overflow-x: clip; }
 
 body {
   font-family: var(--body);
@@ -226,7 +228,7 @@ select:focus-visible, textarea:focus-visible {
   padding: 2px 8px; border-radius: 3px;
 }
 .doc-foot {
-  display: flex; justify-content: space-between;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px;
   font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
   border-top: 1.5px solid var(--line-dark); margin-top: 8px; padding-top: 8px;
   letter-spacing: 0.8px; text-transform: uppercase;
@@ -631,7 +633,8 @@ footer::before {
 .toggle-password {
   position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
   background: var(--paper); border: 1px solid var(--line); border-radius: 4px;
-  width: 36px; height: 36px; min-height: 36px; cursor: pointer; font-size: 15px;
+  width: 40px; height: 40px; min-height: 40px; cursor: pointer; font-size: 15px;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 
 .btn-submit {
@@ -837,8 +840,12 @@ footer::before {
 }
 .photo-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: stretch; }
 .btn-photo { min-height: 48px; white-space: nowrap; width: 100%; }
-.photo-actions .btn-submit { width: 100%; }
-.photo-actions .photo-remove { grid-column: 1 / -1; min-height: 42px; }
+.photo-actions .btn-submit { width: 100%; min-height: 48px; }
+.photo-actions .photo-remove { grid-column: 1 / -1; min-height: 44px; }
+/* samakan tinggi semua kontrol sebaris di kartu anggota */
+.member-actions .status-select,
+.member-actions .btn-neutral,
+.member-actions .btn-danger { min-height: 44px; }
 .photo-status { font-size: 13px; color: var(--ink-soft); margin-top: 10px; min-height: 20px; }
 .photo-status.is-error { color: var(--bad); font-weight: 600; }
 .profile-edit-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1.5px dashed var(--line); }
@@ -975,7 +982,7 @@ footer::before {
   flex: 1; display: flex; align-items: center; gap: 8px;
   background: #fff; border: 1.5px solid var(--line-dark); border-radius: 4px; padding: 0 10px;
 }
-.filter-search input { flex: 1; border: none; outline: none; font-size: 14px; padding: 10px 0; min-height: 42px; background: transparent; font-family: var(--body); }
+.filter-search input { flex: 1; min-width: 0; border: none; outline: none; font-size: 14px; padding: 10px 0; min-height: 42px; background: transparent; font-family: var(--body); }
 .search-ic { font-family: var(--mono); font-size: 13px; font-weight: 700; opacity: 0.6; }
 .search-clear {
   border: 1px solid var(--line); background: var(--paper); border-radius: 3px;
@@ -1097,7 +1104,9 @@ footer::before {
   .dash-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .hamburger { display: flex; }
+  .hamburger { display: flex; min-height: 44px; justify-content: center; }
+  .member-info { min-width: 0; }
+  .search-clear { width: 34px; height: 34px; min-height: 34px; font-size: 13px; }
   .nav-links {
     position: absolute; top: 100%; left: 0; right: 0;
     background: var(--card); border-bottom: 3px solid var(--red);
@@ -1133,10 +1142,13 @@ footer::before {
 }
 @media (max-width: 520px) {
   .steps-grid { grid-template-columns: 1fr; }
-  .logo > span { font-size: 17px; }
-  .logo { gap: 8px; }
-  .logo-icons { padding: 2px 3px; gap: 3px; }
-  .logo-icons .logo-small { width: 24px; height: 24px; }
+  /* navbar muat 4 logo + teks + hamburger: kecilkan & sembunyikan akhiran kota */
+  .logo > span { font-size: 16px; white-space: nowrap; }
+  .logo > span em { display: none; }
+  .logo { gap: 8px; min-width: 0; }
+  .logo-icons { padding: 2px 3px; gap: 3px; flex-shrink: 0; }
+  .logo-icons .logo-small { width: 22px; height: 22px; }
+  .hamburger { flex-shrink: 0; }
   .about-stats { grid-template-columns: 1fr; }
   .container { padding: 0 14px; }
   .op-actions .btn-danger, .op-actions .btn-neutral { width: 100%; }
