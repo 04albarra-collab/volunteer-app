@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">
-        <div class="logo-icons"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"></div>
+        <div class="logo-icons"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small"><img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"></div>
         <span>Relawan Damkar</span>
       </a>
       <div class="hamburger">
@@ -37,7 +37,7 @@
       <div class="dash-header">
         <div class="dash-welcome">
           <p class="dash-eyebrow">Portal Relawan</p>
-          <h1>Halo, <span id="welcomeName">Relawan</span> 👋</h1>
+          <h1>Halo, <span id="welcomeName">Relawan</span></h1>
           <p class="dash-sub">Berikut adalah profil dan status verifikasi akun Anda.</p>
         </div>
         <div class="dash-status-pill" id="dashStatusPill">
@@ -46,31 +46,57 @@
         </div>
       </div>
 
+      <div class="status-banner" id="statusBanner">
+        <span class="banner-ic" id="bannerIc">!</span>
+        <div>
+          <strong id="bannerTitle">Memuat...</strong>
+          <p id="bannerText">Mohon tunggu sebentar.</p>
+        </div>
+      </div>
+
+      <div class="member-card" aria-label="Kartu anggota">
+        <div class="member-card-photo">
+          <span id="memberCardInitial">R</span>
+          <img id="memberCardPhoto" alt="Foto anggota" hidden>
+        </div>
+        <div class="member-card-data">
+          <p class="member-card-kicker">Kartu Anggota &mdash; Redkar Balikpapan</p>
+          <h2 id="memberCardName">-</h2>
+          <div class="member-card-rows">
+            <div><span>No. Anggota</span><strong id="memberCardNo">-</strong></div>
+            <div><span>Status</span><strong id="memberCardStatus">-</strong></div>
+          </div>
+        </div>
+        <span class="member-card-mark" aria-hidden="true">REDKAR</span>
+      </div>
+
+      <p class="dash-section-label">01 &mdash; Data Diri</p>
       <div class="dash-grid">
         <div class="dash-profile">
           <div class="dash-avatar">
             <span id="avatarInitial">R</span>
+            <img id="avatarPhoto" class="avatar-photo" alt="Foto profil" hidden>
             <span class="avatar-ring" id="avatarRing"></span>
           </div>
           <h2 id="profileName">-</h2>
           <p id="profileEmail" class="dash-email">-</p>
           <div class="dash-steps">
             <div class="step done">
-              <span class="step-ic">&#128221;</span>
+              <span class="step-ic">01</span>
               <div>
                 <strong>Daftar</strong>
                 <small>Data dikirim</small>
               </div>
             </div>
             <div class="step" id="stepVerify">
-              <span class="step-ic">&#128273;</span>
+              <span class="step-ic">02</span>
               <div>
                 <strong>Verifikasi Operator</strong>
                 <small id="stepVerifySub">Menunggu tinjauan</small>
               </div>
             </div>
             <div class="step" id="stepActive">
-              <span class="step-ic">&#128640;</span>
+              <span class="step-ic">03</span>
               <div>
                 <strong>Aktif Bertugas</strong>
                 <small>Siap membantu</small>
@@ -81,28 +107,28 @@
 
         <div class="dash-info">
           <div class="info-card">
-            <span class="info-ic">&#9993;</span>
+            <span class="info-ic" aria-hidden="true">@</span>
             <div>
               <small>Email</small>
               <p id="detailEmail">-</p>
             </div>
           </div>
           <div class="info-card">
-            <span class="info-ic">&#128241;</span>
+            <span class="info-ic" aria-hidden="true">Tlp</span>
             <div>
               <small>Nomor Telepon</small>
               <p id="detailTelepon">-</p>
             </div>
           </div>
           <div class="info-card">
-            <span class="info-ic">&#128197;</span>
+            <span class="info-ic" aria-hidden="true">Tgl</span>
             <div>
               <small>Waktu Pendaftaran</small>
               <p id="detailWaktu">-</p>
             </div>
           </div>
           <div class="info-card">
-            <span class="info-ic">&#127942;</span>
+            <span class="info-ic" aria-hidden="true">Sts</span>
             <div>
               <small>Status Akun</small>
               <p id="detailStatus">-</p>
@@ -111,30 +137,46 @@
         </div>
       </div>
 
-      <div class="profile-edit">
-        <div class="profile-edit-head">
-          <span class="info-ic">✏️</span>
-          <div>
-            <h2>Kustomisasi Profil</h2>
-            <p>Nama ini tampil di dashboard dan daftar anggota. Login tetap pakai Gmail.</p>
+      <p class="dash-section-label">02 &mdash; Pengaturan Akun</p>
+      <div class="profile-grid">
+        <div class="profile-edit">
+          <div class="profile-edit-head">
+            <span class="info-ic" aria-hidden="true">Aa</span>
+            <div>
+              <h2>Kustomisasi Profil</h2>
+              <p>Nama ini tampil di dashboard dan daftar anggota. Login tetap pakai Gmail.</p>
+            </div>
           </div>
+          <form id="editNameForm" novalidate>
+            <div class="form-group">
+              <label for="displayName">Nama tampilan</label>
+              <input type="text" id="displayName" maxlength="30" placeholder="cth: Budi Santoso" autocomplete="nickname">
+              <small>3–30 karakter: huruf, angka, spasi, titik, strip.</small>
+              <p class="field-error" id="displayNameError" hidden></p>
+            </div>
+            <button type="submit" class="btn-submit profile-save-btn" id="saveNameBtn">Simpan Nama</button>
+          </form>
         </div>
-        <form id="editNameForm" novalidate>
-          <div class="form-group">
-            <label for="displayName">Nama tampilan</label>
-            <input type="text" id="displayName" maxlength="30" placeholder="cth: Budi Santoso" autocomplete="nickname">
-            <small>3–30 karakter: huruf, angka, spasi, titik, strip.</small>
-            <p class="field-error" id="displayNameError" hidden></p>
-          </div>
-          <button type="submit" class="btn-submit profile-save-btn" id="saveNameBtn">Simpan Nama</button>
-        </form>
-      </div>
 
-      <div class="status-banner" id="statusBanner">
-        <span class="banner-ic" id="bannerIc">&#9203;</span>
-        <div>
-          <strong id="bannerTitle">Memuat...</strong>
-          <p id="bannerText">Mohon tunggu sebentar.</p>
+        <div class="profile-photo">
+          <div class="profile-edit-head">
+            <span class="info-ic" aria-hidden="true">Ft</span>
+            <div>
+              <h2>Foto Profil</h2>
+              <p>Foto tampil di dashboard ini. Maksimal 2MB, format JPG/PNG.</p>
+            </div>
+          </div>
+          <div class="photo-preview-wrap">
+            <img id="photoPreview" class="photo-preview" alt="Pratinjau foto profil" hidden>
+            <div id="photoEmpty" class="photo-empty">Belum ada foto</div>
+          </div>
+          <input type="file" id="photoInput" accept="image/jpeg,image/png,image/webp" hidden>
+          <div class="photo-actions">
+            <label for="photoInput" class="btn-neutral btn-photo" id="photoPickBtn">Pilih Foto</label>
+            <button type="button" class="btn-submit profile-save-btn" id="photoUploadBtn" disabled>Unggah</button>
+            <button type="button" class="btn-neutral btn-photo photo-remove" id="photoRemoveBtn" hidden>Hapus</button>
+          </div>
+          <p class="photo-status" id="photoStatus" aria-live="polite"></p>
         </div>
       </div>
 
@@ -143,9 +185,24 @@
 
   <footer>
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><span>Relawan Damkar</span></div>
-        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih">
+          <img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small">
+          <img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small">
+          <img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah">
+          <span>Relawan Damkar</span>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="index.html">Beranda</a>
+        </div>
+        <p class="footer-callcenter">Call Center: <strong>112</strong></p>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2024 Relawan Damkar. Hak cipta dilindungi UU No. 28 Tahun 2014.</p>
+        <p class="footer-credit">Dibuat oleh <strong>Kesekretariatan Redkar</strong></p>
       </div>
     </div>
   </footer>
@@ -153,6 +210,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
   <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -196,6 +254,28 @@
           document.getElementById('detailStatus').textContent = info.text;
           document.getElementById('avatarInitial').textContent = initial;
 
+          // Foto profil: tampilkan bila sudah ada (Firestore didahulukan, lalu Auth)
+          // Dibungkus try/catch agar tidak pernah menghentikan render data inti
+          try {
+            var photoUrl = userData.photoURL || user.photoURL || null;
+            var avatarPhoto = document.getElementById('avatarPhoto');
+            var photoPreview = document.getElementById('photoPreview');
+            var photoEmpty = document.getElementById('photoEmpty');
+            var photoRemoveBtn = document.getElementById('photoRemoveBtn');
+            var avatarInitialEl = document.getElementById('avatarInitial');
+            if (photoUrl && avatarPhoto) {
+              avatarPhoto.src = photoUrl;
+              avatarPhoto.hidden = false;
+              if (avatarInitialEl) avatarInitialEl.style.visibility = 'hidden';
+            }
+            if (photoUrl && photoPreview) {
+              photoPreview.src = photoUrl;
+              photoPreview.hidden = false;
+              if (photoEmpty) photoEmpty.hidden = true;
+              if (photoRemoveBtn) photoRemoveBtn.hidden = false;
+            }
+          } catch (photoErr) { console.error('Gagal tampilkan foto:', photoErr); }
+
           const pill = document.getElementById('dashStatusPill');
           pill.classList.add(info.cls);
           document.getElementById('dashStatusText').textContent = info.text;
@@ -219,8 +299,204 @@
           } else {
             document.getElementById('stepVerifySub').textContent = info.stepSub;
           }
+
+          // Kartu anggota: foto, nama, nomor, status
+          try {
+            var cardPhoto = document.getElementById('memberCardPhoto');
+            var cardInitial = document.getElementById('memberCardInitial');
+            var cardUrl = userData.photoURL || user.photoURL || null;
+            if (cardUrl && cardPhoto) {
+              cardPhoto.src = cardUrl;
+              cardPhoto.hidden = false;
+              if (cardInitial) cardInitial.style.display = 'none';
+            } else if (cardInitial) {
+              cardInitial.textContent = initial;
+            }
+            document.getElementById('memberCardName').textContent = name;
+            document.getElementById('memberCardNo').textContent = 'REDKAR-' + String(user.uid).slice(0, 8).toUpperCase();
+            var cardStatus = document.getElementById('memberCardStatus');
+            cardStatus.textContent = info.text;
+            cardStatus.className = 'mc-' + status;
+          } catch (cardErr) { console.error('Gagal isi kartu anggota:', cardErr); }
+        }).catch(function (err) {
+          // Sebelumnya tidak ada .catch di sini: gagal baca = stuck "Memuat..." selamanya.
+          console.error('Gagal memuat data dashboard:', err);
+          var code = (err && err.code) || '';
+          var msg = code === 'permission-denied'
+            ? 'Akses data ditolak aturan Firestore. Minta operator memeriksa rules yang ter-publish.'
+            : 'Gagal memuat data. Periksa koneksi internet lalu muat ulang halaman.' + (code ? ' (' + code + ')' : '');
+          var bannerErr = document.getElementById('statusBanner');
+          if (bannerErr) bannerErr.classList.add('is-rejected');
+          var bannerTitleErr = document.getElementById('bannerTitle');
+          if (bannerTitleErr) bannerTitleErr.textContent = 'Gagal Memuat';
+          var bannerTextErr = document.getElementById('bannerText');
+          if (bannerTextErr) bannerTextErr.textContent = msg;
+          var pillTextErr = document.getElementById('dashStatusText');
+          if (pillTextErr) pillTextErr.textContent = 'Gagal memuat';
+          if (window.showToast) window.showToast(msg, 'error');
+          else alert(msg);
         });
       });
+
+      // ===== Foto profil: pilih -> pratinjau -> unggah ke Storage -> simpan URL ke Firestore =====
+      (function initPhotoUpload() {
+        var input = document.getElementById('photoInput');
+        var uploadBtn = document.getElementById('photoUploadBtn');
+        var removeBtn = document.getElementById('photoRemoveBtn');
+        var preview = document.getElementById('photoPreview');
+        var empty = document.getElementById('photoEmpty');
+        var status = document.getElementById('photoStatus');
+        var avatarPhoto = document.getElementById('avatarPhoto');
+        var avatarInitial = document.getElementById('avatarInitial');
+        if (!input || !uploadBtn) return;
+        var MAX_BYTES = 2 * 1024 * 1024;
+        var stagedDataUrl = null;
+
+        function setStatus(msg, isError) {
+          if (!status) return;
+          status.textContent = msg || '';
+          status.classList.toggle('is-error', !!isError);
+        }
+        function toast(msg, type) {
+          if (window.showToast) window.showToast(msg, type || 'info');
+          else if (type === 'error') alert(msg);
+        }
+
+        function downscale(dataUrl, cb) {
+          var img = new Image();
+          img.onload = function () {
+            var MAX_DIM = 512;
+            var w = img.naturalWidth || img.width;
+            var h = img.naturalHeight || img.height;
+            var scale = Math.min(1, MAX_DIM / Math.max(w, h));
+            var cw = Math.max(1, Math.round(w * scale));
+            var ch = Math.max(1, Math.round(h * scale));
+            var canvas = document.createElement('canvas');
+            canvas.width = cw; canvas.height = ch;
+            canvas.getContext('2d').drawImage(img, 0, 0, cw, ch);
+            cb(canvas.toDataURL('image/jpeg', 0.85));
+          };
+          img.onerror = function () { cb(dataUrl); };
+          img.src = dataUrl;
+        }
+
+        input.addEventListener('change', function () {
+          var file = input.files && input.files[0];
+          setStatus('');
+          stagedDataUrl = null;
+          uploadBtn.disabled = true;
+          if (!file) return;
+          if (!/^image\//.test(file.type)) {
+            setStatus('File harus gambar (JPG/PNG/WebP).', true);
+            input.value = '';
+            return;
+          }
+          if (file.size > MAX_BYTES) {
+            setStatus('Ukuran maksimal 2MB. Pilih foto yang lebih kecil.', true);
+            input.value = '';
+            return;
+          }
+          var reader = new FileReader();
+          reader.onload = function () {
+            downscale(reader.result, function (small) {
+              stagedDataUrl = small;
+              if (preview) { preview.src = small; preview.hidden = false; }
+              if (empty) empty.hidden = true;
+              uploadBtn.disabled = false;
+              setStatus('Pratinjau siap. Klik Unggah untuk menyimpan.');
+            });
+          };
+          reader.onerror = function () { setStatus('Gagal membaca file.', true); };
+          reader.readAsDataURL(file);
+        });
+
+        uploadBtn.addEventListener('click', function () {
+          var user = auth.currentUser;
+          if (!user) { window.location.href = 'login.html'; return; }
+          if (!stagedDataUrl) { setStatus('Pilih foto dulu.', true); return; }
+          if (typeof firebase.storage !== 'function') {
+            setStatus('Layanan Storage belum aktif di halaman ini.', true);
+            return;
+          }
+          uploadBtn.disabled = true;
+          uploadBtn.classList.add('is-loading');
+          setStatus('Mengunggah...');
+          var ref = firebase.storage().ref('profile-photos/' + user.uid + '/profile.jpg');
+          ref.putString(stagedDataUrl, 'data_url', { contentType: 'image/jpeg' })
+            .then(function () { return ref.getDownloadURL(); })
+            .then(function (url) {
+              return db.collection('users').doc(user.uid).update({ photoURL: url }).then(function () { return url; });
+            })
+            .then(function (url) {
+              try { if (user.updateProfile) user.updateProfile({ photoURL: url }).catch(function () {}); } catch (_) {}
+              if (preview) { preview.src = url; preview.hidden = false; }
+              if (empty) empty.hidden = true;
+              if (removeBtn) removeBtn.hidden = false;
+              if (avatarPhoto) { avatarPhoto.src = url; avatarPhoto.hidden = false; }
+              if (avatarInitial) avatarInitial.style.visibility = 'hidden';
+              input.value = '';
+              stagedDataUrl = null;
+              setStatus('Foto profil tersimpan.');
+              toast('Foto profil tersimpan.', 'success');
+            })
+            .catch(function (err) {
+              var code = (err && err.code) || '';
+              if (code === 'storage/unauthorized' || (err && err.code === 'permission-denied')) {
+                setStatus('Upload ditolak aturan Storage. Minta operator menerbitkan Storage rules untuk profile-photos.', true);
+                toast('Upload ditolak aturan Storage. Hubungi operator.', 'error');
+              } else {
+                setStatus('Gagal mengunggah: ' + (err && err.message ? err.message : err), true);
+              }
+            })
+            .finally(function () {
+              uploadBtn.classList.remove('is-loading');
+              uploadBtn.disabled = !stagedDataUrl ? true : false;
+              if (!stagedDataUrl) uploadBtn.disabled = true;
+            });
+        });
+
+        if (removeBtn) {
+          removeBtn.addEventListener('click', function () {
+            var user = auth.currentUser;
+            if (!user) return;
+            if (!window.confirm('Hapus foto profil?')) return;
+            setStatus('Menghapus...');
+            var finishRemove = function () {
+              if (preview) { preview.removeAttribute('src'); preview.hidden = true; }
+              if (empty) empty.hidden = false;
+              if (avatarPhoto) { avatarPhoto.removeAttribute('src'); avatarPhoto.hidden = true; }
+              if (avatarInitial) avatarInitial.style.visibility = '';
+              removeBtn.hidden = true;
+              input.value = '';
+              stagedDataUrl = null;
+              uploadBtn.disabled = true;
+              setStatus('Foto profil dihapus.');
+              toast('Foto profil dihapus.', 'success');
+            };
+            var updates = [db.collection('users').doc(user.uid).update({ photoURL: firebase.firestore.FieldValue.delete() })];
+            try { if (user.updateProfile) updates.push(user.updateProfile({ photoURL: null }).catch(function () {})); } catch (_) {}
+            if (typeof firebase.storage === 'function') {
+              firebase.storage().ref('profile-photos/' + user.uid + '/profile.jpg').delete().catch(function () {});
+            }
+            Promise.all(updates).then(finishRemove).catch(function (err) {
+              setStatus('Gagal menghapus: ' + (err && err.message ? err.message : err), true);
+            });
+          });
+        }
+      })();
+
+      // Pengaman: kalau 15 detik masih "Memuat...", beri tahu user (bukan diam saja)
+      setTimeout(function () {
+        var pillText = document.getElementById('dashStatusText');
+        if (pillText && pillText.textContent === 'Memuat...') {
+          var hint = 'Masih memuat? Cek koneksi internet, pastikan sudah login, lalu muat ulang halaman.';
+          var bannerTextHint = document.getElementById('bannerText');
+          if (bannerTextHint && bannerTextHint.textContent === 'Mohon tunggu sebentar.') {
+            bannerTextHint.textContent = hint;
+          }
+          if (window.showToast) window.showToast(hint, 'error');
+        }
+      }, 15000);
 
       document.getElementById('logoutLink').addEventListener('click', function(e) {
         e.preventDefault();

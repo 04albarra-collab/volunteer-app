@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -15,8 +15,10 @@
     <div class="container">
       <a href="index.html" class="logo">
         <div class="logo-icons">
-          <img src="merahmerah.jpg" alt="Lambang Relawan" class="logo-small logo-merah">
           <img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih">
+          <img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small">
+          <img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small">
+          <img src="merahmerah.jpg" alt="Lambang Relawan" class="logo-small logo-merah">
         </div>
         <span>Relawan Damkar</span>
       </a>
@@ -40,10 +42,11 @@
 
       <div class="op-header">
         <div>
-          <h1>Dashboard Operator</h1>
-          <p>Kelola anggota relawan: verifikasi, reset password, nonaktifkan & hapus</p>
+          <p class="page-kicker page-kicker-dark">Posko Induk &bull; Akses Terbatas</p>
+          <h1>Dashboard <span>Operator</span></h1>
+          <p>Kelola anggota relawan: verifikasi, reset password, nonaktifkan &amp; hapus</p>
         </div>
-        <span class="op-badge">&#128273; Mode Operator Aktif</span>
+        <span class="op-badge">Mode Operator Aktif</span>
       </div>
 
       <div class="op-mode-panel" id="op-mode">
@@ -73,7 +76,7 @@
           </div>
           <div class="filter-toolbar">
             <div class="filter-row" role="tablist" aria-label="Filter status anggota">
-              <button class="filter-btn active" data-filter="semua" role="tab" aria-selected="true"><span class="filter-ic">📋</span>Semua<span class="filter-count" id="count-semua">0</span></button>
+              <button class="filter-btn active" data-filter="semua" role="tab" aria-selected="true"><span class="filter-ic" aria-hidden="true">=/</span>Semua<span class="filter-count" id="count-semua">0</span></button>
               <button class="filter-btn" data-filter="menunggu" role="tab" aria-selected="false"><span class="filter-dot dot-wait"></span>Menunggu<span class="filter-count" id="count-menunggu">0</span></button>
               <button class="filter-btn" data-filter="terverifikasi" role="tab" aria-selected="false"><span class="filter-dot dot-ok"></span>Terverifikasi<span class="filter-count" id="count-terverifikasi">0</span></button>
               <button class="filter-btn" data-filter="ditolak" role="tab" aria-selected="false"><span class="filter-dot dot-reject"></span>Ditolak<span class="filter-count" id="count-ditolak">0</span></button>
@@ -81,7 +84,7 @@
             </div>
             <div class="filter-tools">
               <label class="filter-search">
-                <span class="search-ic">🔍</span>
+                <span class="search-ic" aria-hidden="true">?</span>
                 <input type="search" id="member-search" placeholder="Cari nama, email, atau telepon..." autocomplete="off">
                 <button type="button" id="search-clear" class="search-clear" aria-label="Hapus pencarian" hidden>✕</button>
               </label>
@@ -97,12 +100,24 @@
 
   <footer>
     <div class="container">
-      <div class="footer-content">
+      <div class="footer-top">
         <div class="footer-logo">
-          <img src="merahmerah.jpg" alt="Lambang Relawan" class="logo-small logo-merah">
+          <img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih">
+          <img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small">
+          <img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small">
+          <img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah">
           <span>Relawan Damkar</span>
         </div>
-        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
+        <div class="footer-links">
+          <a href="index.html">Beranda</a>
+          <a href="about.html">About Us</a>
+          <a href="verifikasi-anggota.html">Verifikasi</a>
+        </div>
+        <p class="footer-callcenter">Call Center: <strong>112</strong></p>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2024 Relawan Damkar. Hak cipta dilindungi UU No. 28 Tahun 2014.</p>
+        <p class="footer-credit">Dibuat oleh <strong>Kesekretariatan Redkar</strong></p>
       </div>
     </div>
   </footer>

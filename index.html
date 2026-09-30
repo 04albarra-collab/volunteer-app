@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beranda - Relawan Damkar</title>
+  <meta name="description" content="Pendaftaran resmi Relawan Pemadam Kebakaran (REDKAR) Kota Balikpapan. Dibina BPBD, siaga 24 jam, call center 112.">
+  <title>Beranda - Relawan Damkar Balikpapan</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">
-        <div class="logo-icons"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"></div>
-        <span>Relawan Damkar</span>
+        <div class="logo-icons"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small"><img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"></div>
+        <span>Relawan Damkar <em>Balikpapan</em></span>
       </a>
-      <div class="hamburger">
+      <div class="hamburger" role="button" tabindex="0">
         <span></span>
         <span></span>
         <span></span>
@@ -32,30 +33,207 @@
   </nav>
 
   <section class="hero" id="home">
-    <div class="container">
+    <div class="container hero-grid">
       <div class="hero-content">
-        <div class="hero-badge"><span class="pulse"></span>Siaga 24/7 &bull; Balikpapan</div>
-        <div class="logo-display"><img src="merahmerah.jpg" alt="Lambang Merah" class="merah-logo"><img src="helemkuning.png" alt="Lambang Kuning" class="putih-logo"></div>
+        <div class="hero-badge"><span class="pulse"></span>Siaga 24/7 &bull; Balikpapan &bull; Call 112</div>
+        <p class="hero-kicker">BPBD Kota Balikpapan &mdash; No. Arsip REDKAR/2024/BPN</p>
         <h1>Relawan Damkar Balikpapan</h1>
-        <p>Jadilah bagian dari tim relawan Damkar di Balikpapan dan bantu masyarakat dalam menghadapi berbagai bencana</p>
+        <p>Organisasi sukarelawan resmi yang dibina <strong>BPBD Kota Balikpapan</strong>. Membantu pemadaman dini, evakuasi, dan edukasi keselamatan dari tingkat RT sampai kecamatan.</p>
         <div class="hero-buttons">
           <a href="daftar.html" class="btn-primary">Daftar Jadi Relawan</a>
           <a href="about.html" class="btn-outline">Pelajari Lebih Lanjut</a>
         </div>
         <div class="hero-mini-stats">
-          <div><strong>24/7</strong><span>Siaga Bantuan</span></div>
+          <div><strong>24/7</strong><span>Siaga Bantuan via 112</span></div>
           <div><strong>Rescue</strong><span>Evakuasi &amp; Penyelamatan</span></div>
           <div><strong>Edukasi</strong><span>Keselamatan Warga</span></div>
         </div>
+        <p class="hero-note">Pendaftaran daring &rarr; ditinjau operator &rarr; status terpantau di dashboard. Tanpa pungutan biaya.</p>
+      </div>
+      <aside class="hero-panel" aria-label="Informasi posko">
+        <div class="hero-doc">
+          <div class="logo-display"><img src="helemkuning.png" alt="Lambang Kuning" class="putih-logo"><img src="kemendagri.jpeg" alt="Logo Kemendagri" class="merah-logo"><img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="merah-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="merah-logo"></div>
+          <dl class="doc-rows">
+            <div><dt>Posko induk</dt><dd>BPBD Balikpapan</dd></div>
+            <div><dt>Telepon darurat</dt><dd><strong>112</strong> &mdash; bebas pulsa</dd></div>
+            <div><dt>Wilayah tugas</dt><dd>Kelurahan &amp; kecamatan</dd></div>
+            <div><dt>Status rekrutmen</dt><dd><span class="doc-open">Dibuka</span></dd></div>
+          </dl>
+          <div class="doc-foot">
+            <span>Formulir REDKAR-F01</span>
+            <span>Rev. 2024</span>
+          </div>
+        </div>
+        <div class="hero-syarat">
+          <p class="syarat-title">Syarat ringkas</p>
+          <ul>
+            <li>Warga Balikpapan, usia 16+ tahun</li>
+            <li>Sehat jasmani, siap piket terjadwal</li>
+            <li>Bersedia ikut pembinaan dasar</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="emergency-strip" role="note" aria-label="Kontak darurat">
+    <div class="container emergency-inner">
+      <div class="emergency-text">
+        <span class="emergency-kicker">Keadaan darurat kebakaran?</span>
+        <strong>Jangan datang langsung ke pos &mdash; hubungi <span class="emergency-num">112</span> terlebih dahulu.</strong>
+      </div>
+      <div class="emergency-side">
+        <span class="emergency-meta">Siaga 24 jam &bull; Petugas akan mengarahkan titik kumpul aman</span>
+        <a href="about.html" class="btn-emergency">Tugas Redkar</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="home-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-kicker">Bidang Tugas &mdash; 01</p>
+        <h2>Apa yang dikerjakan relawan</h2>
+        <p>Tiga pekerjaan pokok yang dilatihkan kepada setiap anggota sebelum diterjunkan ke lapangan.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc-card">
+          <span class="svc-no">01</span>
+          <h3>Pemadaman Dini</h3>
+          <p>Respons pertama sebelum armada tiba: APAR, karung basah, dan pengamanan sumber api di tingkat RT.</p>
+          <ul>
+            <li>Pelaporan titik api &amp; akses jalan</li>
+            <li>Pengamanan warga sekitar lokasi</li>
+          </ul>
+        </article>
+        <article class="svc-card">
+          <span class="svc-no">02</span>
+          <h3>Evakuasi &amp; Rescue</h3>
+          <p>Membantu evakuasi warga, korban kecelakaan, dan kedaruratan non-kebakaran seperti satwa liar.</p>
+          <ul>
+            <li>Pendampingan korban ke titik aman</li>
+            <li>Dukungan logistik pasca-kejadian</li>
+          </ul>
+        </article>
+        <article class="svc-card">
+          <span class="svc-no">03</span>
+          <h3>Edukasi Warga</h3>
+          <p>Sosialisasi rutin ke rumah tangga: instalasi listrik, kompor, dan jalur evakuasi gang sempit.</p>
+          <ul>
+            <li>Penyuluhan kelurahan terjadwal</li>
+            <li>Simulasi APAR untuk warga</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-alt">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-kicker">Alur Pendaftaran &mdash; 02</p>
+        <h2>Dari formulir sampai bertugas</h2>
+        <p>Empat tahap. Semua status bisa dipantau mandiri lewat dashboard akun.</p>
+      </div>
+      <ol class="steps-grid">
+        <li class="step-card">
+          <span class="step-no">1</span>
+          <strong>Isi formulir</strong>
+          <p>Email, password, dan nomor telepon aktif. Proses kurang dari 3 menit.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-no">2</span>
+          <strong>Ditinjau operator</strong>
+          <p>Data diperiksa kesekretariatan. Rata-rata verifikasi 1&times;24 jam.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-no">3</span>
+          <strong>Dipanggil pembinaan</strong>
+          <p>Anggota terverifikasi mengikuti pembinaan dasar di posko induk.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-no">4</span>
+          <strong>Siap bertugas</strong>
+          <p>Ditempatkan di kelurahan domisili sesuai jadwal piket.</p>
+        </li>
+      </ol>
+      <div class="hero-buttons steps-cta">
+        <a href="daftar.html" class="btn-primary">Mulai Pendaftaran</a>
+        <a href="login.html" class="btn-outline">Sudah daftar? Masuk</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="container about-grid">
+      <div class="about-gallery">
+        <div class="about-image">
+          <img src="fotounit1.jpg" alt="Unit 1 Relawan Damkar" class="about-img" loading="lazy">
+        </div>
+        <div class="about-image">
+          <img src="pelatihanbhddasar.jpeg" alt="Pelatihan BHD dasar" class="about-img" loading="lazy">
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-kicker">Sekilas Redkar &mdash; 03</p>
+        <h3>Dari warga, oleh warga, untuk warga</h3>
+        <p>REDKAR dibentuk berdasarkan <strong>Kepmendagri No. 364.1-306 Tahun 2020</strong> dan dibina langsung oleh BPBD. Di Balikpapan, relawan menjadi kepanjangan tangan pos Damkar di gang-gang yang sulit dijangkau armada besar.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">53.000+</span>
+            <span class="stat-label">Anggota aktif nasional</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">15 mnt</span>
+            <span class="stat-label">Target response time</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">112</span>
+            <span class="stat-label">Call center darurat</span>
+          </div>
+        </div>
+        <div class="hero-buttons">
+          <a href="about.html" class="btn-outline">Baca Profil Lengkap</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-board">
+    <div class="container cta-inner">
+      <div>
+        <p class="cta-kicker">Rekrutmen terbuka &mdash; tanpa biaya</p>
+        <h2>Siap jadi garda depan di lingkunganmu?</h2>
+        <p>Isi formulir malam ini, verifikasi besok, ikut pembinaan pekan ini. Semua pengumuman tampil di dashboard akun.</p>
+      </div>
+      <div class="hero-buttons cta-actions">
+        <a href="daftar.html" class="btn-secondary">Gabung Sekarang</a>
+        <a href="operator-login.html" class="btn-ghost-light">Jalur Operator</a>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><span>Relawan Damkar</span></div>
-        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih">
+          <img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small">
+          <img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small">
+          <img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah">
+          <span>Relawan Damkar</span>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="daftar.html">Daftar</a>
+          <a href="login.html">Masuk</a>
+          <a href="operator-login.html">Operator</a>
+        </div>
+        <p class="footer-callcenter">Call Center: <strong>112</strong></p>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2024 Relawan Damkar. Hak cipta dilindungi UU No. 28 Tahun 2014.</p>
+        <p class="footer-credit">Dibuat oleh <strong>Kesekretariatan Redkar</strong></p>
       </div>
     </div>
   </footer>

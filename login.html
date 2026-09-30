@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">
-        <div class="logo-icons"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"></div>
+        <div class="logo-icons"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small"><img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"></div>
         <span>Relawan Damkar</span>
       </a>
       <div class="hamburger">
@@ -32,8 +32,9 @@
   </nav>
 
   <div class="login-wrapper">
+    <div class="container login-split">
     <div class="login-card">
-      <div class="form-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="merah-logo"><img src="helemkuning.png" alt="Lambang Kuning" class="putih-logo"></div>
+      <div class="form-logo"><img src="helemkuning.png" alt="Lambang Kuning" class="putih-logo"><img src="kemendagri.jpeg" alt="Logo Kemendagri" class="merah-logo"><img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="merah-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="merah-logo"></div>
       <h2>Selamat Datang</h2>
       <p class="form-subtitle">Masuk ke akun Relawan Damkar Anda</p>
       <form id="loginForm" onsubmit="return handleLogin(event)">
@@ -51,14 +52,42 @@
         <button type="submit" class="btn-submit">Masuk</button>
       </form>
       <p class="form-link">Belum punya akun? <a href="daftar.html">Daftar di sini</a></p>
+      <p class="form-link form-link-muted">Akun dinonaktifkan? Hubungi operator posko.</p>
+    </div>
+    <aside class="form-side form-side-dark">
+      <p class="page-kicker">Portal Anggota</p>
+      <h3>Pantau status verifikasi</h3>
+      <p>Masuk untuk melihat tahap pendaftaran, data diri, dan pengumuman pembinaan dari operator.</p>
+      <ul class="side-check">
+        <li>Status menunggu / terverifikasi / ditolak</li>
+        <li>Ubah nama tampilan kapan saja</li>
+        <li>Login tetap memakai email terdaftar</li>
+      </ul>
+    </aside>
     </div>
   </div>
 
   <footer>
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><span>Relawan Damkar</span></div>
-        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih">
+          <img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small">
+          <img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small">
+          <img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah">
+          <span>Relawan Damkar</span>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="daftar.html">Daftar</a>
+          <a href="login.html">Masuk</a>
+          <a href="operator-login.html">Operator</a>
+        </div>
+        <p class="footer-callcenter">Call Center: <strong>112</strong></p>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2024 Relawan Damkar. Hak cipta dilindungi UU No. 28 Tahun 2014.</p>
+        <p class="footer-credit">Dibuat oleh <strong>Kesekretariatan Redkar</strong></p>
       </div>
     </div>
   </footer>

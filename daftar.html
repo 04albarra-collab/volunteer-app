@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">
-        <div class="logo-icons"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"></div>
+        <div class="logo-icons"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small"><img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"></div>
         <span>Relawan Damkar</span>
       </a>
       <div class="hamburger">
@@ -32,15 +32,17 @@
   </nav>
 
   <div class="page-hero">
-    <div>
+    <div class="container">
+      <p class="page-kicker">Formulir REDKAR-F01 &bull; Tanpa biaya</p>
       <h1>Daftar Relawan</h1>
-      <p>Isi formulir berikut untuk menjadi bagian dari tim Relawan Damkar Balikpapan</p>
+      <p>Isi formulir berikut untuk menjadi bagian dari tim Relawan Damkar Balikpapan. Data ditinjau operator 1&times;24 jam.</p>
     </div>
   </div>
 
   <div class="form-page">
-    <div class="form-container">
-      <div class="form-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="merah-logo"><img src="helemkuning.png" alt="Lambang Kuning" class="putih-logo"></div>
+    <div class="container form-split">
+      <div class="form-container">
+      <div class="form-logo"><img src="helemkuning.png" alt="Lambang Kuning" class="putih-logo"><img src="kemendagri.jpeg" alt="Logo Kemendagri" class="merah-logo"><img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="merah-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="merah-logo"></div>
       <h2>Bergabung dengan Kami</h2>
       <p class="form-subtitle">Isi data diri Anda untuk mendaftar</p>
       <form id="daftarForm" onsubmit="return handleDaftar(event)">
@@ -63,14 +65,40 @@
         <button type="submit" class="btn-submit">Daftar</button>
       </form>
       <p class="form-link">Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
+      </div>
+      <aside class="form-side">
+        <h3>Setelah mendaftar</h3>
+        <ol>
+          <li><strong>1.</strong> Data masuk antrean operator.</li>
+          <li><strong>2.</strong> Pantau status di dashboard.</li>
+          <li><strong>3.</strong> Ikuti pembinaan bila terverifikasi.</li>
+        </ol>
+        <p class="form-side-note">Butuh bantuan? Hubungi posko via call center <strong>112</strong>.</p>
+      </aside>
     </div>
   </div>
 
   <footer>
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo"><img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah"><img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih"><span>Relawan Damkar</span></div>
-        <p>&copy; 2024 Relawan Damkar. Semua Hak Dilindungi.</p>
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="helemkuning.png" alt="Lambang Kuning" class="logo-small logo-putih">
+          <img src="kemendagri.jpeg" alt="Logo Kemendagri" class="logo-small">
+          <img src="pemkot.jpeg" alt="Logo Pemerintah Kota Balikpapan" class="logo-small">
+          <img src="merahmerah.jpg" alt="Lambang Merah" class="logo-small logo-merah">
+          <span>Relawan Damkar</span>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="daftar.html">Daftar</a>
+          <a href="login.html">Masuk</a>
+          <a href="operator-login.html">Operator</a>
+        </div>
+        <p class="footer-callcenter">Call Center: <strong>112</strong></p>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2024 Relawan Damkar. Hak cipta dilindungi UU No. 28 Tahun 2014.</p>
+        <p class="footer-credit">Dibuat oleh <strong>Kesekretariatan Redkar</strong></p>
       </div>
     </div>
   </footer>

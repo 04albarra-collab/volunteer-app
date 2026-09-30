@@ -164,9 +164,10 @@ function handleLogin(e) {
               });
             }
           })
-          .catch(() => {
-            window.location.href = 'dashboard.html';
-          });
+.catch(() => {
+             if (window.showToast) window.showToast('Gagal memuat data akun. Coba muat ulang halaman.', 'error');
+             window.location.href = 'dashboard.html';
+           });
       })
       .catch(err => {
         alert('Gagal masuk: ' + err.message);
@@ -205,17 +206,15 @@ function handleForgotPassword(e) {
   const link = document.getElementById('operatorForgotLink');
   if (link) link.style.pointerEvents = 'none';
   auth.sendPasswordResetEmail(email)
-    .then(() => {
-      const msg = `Email reset terkirim ke ${email}. Cek Inbox & folder Spam/Promosi, lalu klik link di email tersebut.`;
-      if (window.showToast) window.showToast(msg, 'success');
-      alert(msg);
-    })
-    .catch(err => {
-      const msg = getResetErrorMessage(err);
-      console.error('Reset password gagal:', err);
-      if (window.showToast) window.showToast(msg, 'error');
-      else alert(msg);
-    })
+.then(() => {
+       const msg = `Email reset terkirim ke ${email}. Cek Inbox & folder Spam/Promosi, lalu klik link di email tersebut.`;
+       if (window.showToast) window.showToast(msg, 'success');
+     })
+     .catch(err => {
+       const msg = getResetErrorMessage(err);
+       console.error('Reset password gagal:', err);
+       if (window.showToast) window.showToast(msg, 'error');
+     })
     .finally(() => {
       if (link) link.style.pointerEvents = '';
     });
@@ -437,12 +436,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const searchInput = document.getElementById('member-search');
   const searchClear = document.getElementById('search-clear');
+
+  function debounce(fn, ms) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), ms);
+    };
+  }
+
   if (searchInput) {
-    searchInput.addEventListener('input', function () {
+    searchInput.addEventListener('input', debounce(function () {
       memberSearch = this.value.trim().toLowerCase();
       if (searchClear) searchClear.hidden = !this.value;
       renderMembers();
-    });
+    }, 300));
   }
   if (searchClear && searchInput) {
     searchClear.addEventListener('click', function () {
@@ -542,7 +550,16 @@ function renderMembers() {
   const listEl = document.getElementById('member-list');
   if (!listEl) return;
 
-db.collection('users').orderBy('waktu', 'desc').get().then(snapshot => {
+  listEl.innerHTML = [1, 2, 3].map(() => `
+    <div class="skeleton-item" aria-hidden="true">
+      <div class="skeleton-avatar"></div>
+      <div class="skeleton-lines">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line long"></div>
+      </div>
+    </div>`).join('');
+
+  db.collection('users').orderBy('waktu', 'desc').get().then(snapshot => {
      const members = snapshot.docs
        .map(doc => ({ id: doc.id, ...doc.data() }))
        .filter(m => !m.isOperator && !isDefaultOperatorEmail(m.email));
@@ -587,7 +604,7 @@ db.collection('users').orderBy('waktu', 'desc').get().then(snapshot => {
        return `
          <div class="member-item">
            <div class="member-info">
-             <div class="member-avatar">${initial}</div>
+              <div class="member-avatar">${m.photoURL ? `<img src="${escapeHtml(m.photoURL)}" alt="" class="member-photo" loading="lazy">` : initial}</div>
              <div class="member-text">
                 <span class="m-name">${escapeHtml(m.username || m.email)}</span>
                 <span class="m-email">${escapeHtml(m.email)}</span>
@@ -770,22 +787,16 @@ function bindMemberEvents() {
     btn?.classList.add('is-loading');
     if (btn) btn.disabled = true;
 
-    db.collection('users').doc(user.uid).update({ username: name })
-      .then(() => {
-        // Sinkronkan juga ke profil Auth (opsional, diabaikan kalau gagal)
-        try {
-          if (user.updateProfile) user.updateProfile({ displayName: name }).catch(() => {});
-        } catch (_) {}
-        // Refresh tampilan langsung tanpa reload
-        const setText = (id, val) => {
-          const el = document.getElementById(id);
-          if (el) el.textContent = val;
-        };
-        setText('welcomeName', name);
-        setText('profileName', name);
-        setText('avatarInitial', (name.charAt(0) || 'R').toUpperCase());
-        if (window.showToast) window.showToast('Nama tampilan berhasil disimpan.', 'success');
-      })
+      db.collection('users').doc(user.uid).update({ username: name })
+       .then(() => {
+         try {
+           if (user.updateProfile) user.updateProfile({ displayName: name }).catch(() => {});
+         } catch (_) {}
+         setText('welcomeName', name);
+         setText('profileName', name);
+         setText('avatarInitial', (name.charAt(0) || 'R').toUpperCase());
+         if (window.showToast) window.showToast('Nama tampilan berhasil disimpan.', 'success');
+       })
       .catch((err) => {
         const msgErr = (err && err.code === 'permission-denied')
           ? 'Gagal menyimpan: aturan Firestore menolak. Pastikan rules terbaru sudah di-publish.'
@@ -874,26 +885,19 @@ function bindMemberEvents() {
       }
     });
   }
-  observeReveals();
+observeReveals();
+
   // Daftar anggota di-render ulang via Firestore → amati lagi tiap render
   const memberList = document.getElementById('member-list');
+  let memberObserver = null;
   if (memberList && 'MutationObserver' in window) {
-    new MutationObserver(() => observeReveals(memberList)).observe(memberList, { childList: true });
+    memberObserver = new MutationObserver(() => {
+      requestAnimationFrame(() => observeReveals(memberList));
+    });
+    memberObserver.observe(memberList, { childList: true });
   }
 
-  // 5. Skeleton saat daftar anggota dimuat
-  if (memberList && !memberList.children.length) {
-    memberList.innerHTML = [1, 2, 3].map(() => `
-      <div class="skeleton-item" aria-hidden="true">
-        <div class="skeleton-avatar"></div>
-        <div class="skeleton-lines">
-          <div class="skeleton-line short"></div>
-          <div class="skeleton-line long"></div>
-        </div>
-      </div>`).join('');
-  }
-
-  // 6. Klik kartu statistik → terapkan filter yang sesuai
+  // Klik kartu statistik → terapkan filter yang sesuai
   const statToFilter = {
     statTotal: 'semua',
     statMenunggu: 'menunggu',
