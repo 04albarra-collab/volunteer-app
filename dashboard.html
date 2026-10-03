@@ -47,7 +47,7 @@
       </div>
 
       <div class="status-banner" id="statusBanner">
-        <span class="banner-ic" id="bannerIc">!</span>
+        <span class="banner-ic" id="bannerIc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
         <div>
           <strong id="bannerTitle">Memuat...</strong>
           <p id="bannerText">Mohon tunggu sebentar.</p>
@@ -107,28 +107,28 @@
 
         <div class="dash-info">
           <div class="info-card">
-            <span class="info-ic" aria-hidden="true">@</span>
+            <span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
             <div>
               <small>Email</small>
               <p id="detailEmail">-</p>
             </div>
           </div>
           <div class="info-card">
-            <span class="info-ic" aria-hidden="true">Tlp</span>
+            <span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8.1 9.6a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg></span>
             <div>
               <small>Nomor Telepon</small>
               <p id="detailTelepon">-</p>
             </div>
           </div>
           <div class="info-card">
-            <span class="info-ic" aria-hidden="true">Tgl</span>
+            <span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
             <div>
               <small>Waktu Pendaftaran</small>
               <p id="detailWaktu">-</p>
             </div>
           </div>
           <div class="info-card">
-            <span class="info-ic" aria-hidden="true">Sts</span>
+            <span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 11 3H4v7l9.6 10.4a2 2 0 0 0 2.8 0l4.2-4.2a2 2 0 0 0 0-2.8Z"/><circle cx="8" cy="7" r="1.4"/></svg></span>
             <div>
               <small>Status Akun</small>
               <p id="detailStatus">-</p>
@@ -141,7 +141,7 @@
       <div class="profile-grid">
         <div class="profile-edit">
           <div class="profile-edit-head">
-            <span class="info-ic" aria-hidden="true">Aa</span>
+            <span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></span>
             <div>
               <h2>Kustomisasi Profil</h2>
               <p>Nama ini tampil di dashboard dan daftar anggota. Login tetap pakai Gmail.</p>
@@ -160,7 +160,7 @@
 
         <div class="profile-photo">
           <div class="profile-edit-head">
-            <span class="info-ic" aria-hidden="true">Ft</span>
+            <span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
             <div>
               <h2>Foto Profil</h2>
               <p>Foto tampil di dashboard ini. Maksimal 2MB, format JPG/PNG.</p>
@@ -243,11 +243,15 @@
           document.getElementById('detailTelepon').textContent = userData.telepon || '-';
           document.getElementById('detailWaktu').textContent = userData.waktu || '-';
 
+          const SVG_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+          const SVG_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+          const SVG_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+          const SVG_BAN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/></svg>';
           const statusMap = {
-            'menunggu': { text: 'Menunggu Verifikasi', cls: 'is-waiting', bannerIc: '&#9203;', bannerTitle: 'Sedang Diproses', bannerText: 'Akun Anda sedang dalam peninjauan oleh operator. Kami akan segera menginformasikan begitu verifikasi selesai.', stepSub: 'Menunggu tinjauan' },
-            'terverifikasi': { text: 'Terverifikasi', cls: 'is-verified', bannerIc: '&#9989;', bannerTitle: 'Akun Terverifikasi', bannerText: 'Selamat! Akun Anda telah diverifikasi oleh operator. Anda resmi menjadi bagian dari Relawan Damkar Balikpapan.', stepSub: 'Disetujui' },
-            'ditolak': { text: 'Ditolak', cls: 'is-rejected', bannerIc: '&#10060;', bannerTitle: 'Pendaftaran Ditolak', bannerText: 'Maaf, pendaftaran Anda ditolak oleh operator. Silakan hubungi admin untuk informasi lebih lanjut.', stepSub: 'Ditolak' },
-            'nonaktif': { text: 'Nonaktif', cls: 'is-inactive', bannerIc: '&#128683;', bannerTitle: 'Akun Dinonaktifkan', bannerText: 'Akun Anda telah dinonaktifkan oleh operator sehingga tidak dapat login. Silakan hubungi admin untuk mengaktifkan kembali.', stepSub: 'Dinonaktifkan' }
+            'menunggu': { text: 'Menunggu Verifikasi', cls: 'is-waiting', bannerIc: SVG_CLOCK, bannerTitle: 'Sedang Diproses', bannerText: 'Akun Anda sedang dalam peninjauan oleh operator. Kami akan segera menginformasikan begitu verifikasi selesai.', stepSub: 'Menunggu tinjauan' },
+            'terverifikasi': { text: 'Terverifikasi', cls: 'is-verified', bannerIc: SVG_CHECK, bannerTitle: 'Akun Terverifikasi', bannerText: 'Selamat! Akun Anda telah diverifikasi oleh operator. Anda resmi menjadi bagian dari Relawan Damkar Balikpapan.', stepSub: 'Disetujui' },
+            'ditolak': { text: 'Ditolak', cls: 'is-rejected', bannerIc: SVG_X, bannerTitle: 'Pendaftaran Ditolak', bannerText: 'Maaf, pendaftaran Anda ditolak oleh operator. Silakan hubungi admin untuk informasi lebih lanjut.', stepSub: 'Ditolak' },
+            'nonaktif': { text: 'Nonaktif', cls: 'is-inactive', bannerIc: SVG_BAN, bannerTitle: 'Akun Dinonaktifkan', bannerText: 'Akun Anda telah dinonaktifkan oleh operator sehingga tidak dapat login. Silakan hubungi admin untuk mengaktifkan kembali.', stepSub: 'Dinonaktifkan' }
           };
           const info = statusMap[status] || statusMap['menunggu'];
 
@@ -313,7 +317,7 @@
               cardInitial.textContent = initial;
             }
             document.getElementById('memberCardName').textContent = name;
-            document.getElementById('memberCardNo').textContent = 'REDKAR-' + String(user.uid).slice(0, 8).toUpperCase();
+            document.getElementById('memberCardNo').textContent = (status === 'terverifikasi') ? '64-71' : '-';
             var cardStatus = document.getElementById('memberCardStatus');
             cardStatus.textContent = info.text;
             cardStatus.className = 'mc-' + status;

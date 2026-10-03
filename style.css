@@ -109,6 +109,19 @@ select:focus-visible, textarea:focus-visible {
   padding: 3px 4px;
 }
 .logo-icons .logo-small { border: none; border-radius: 2px; width: 30px; height: 30px; }
+/* --- ikon UI SVG (pengganti emoji/entity; logo foto tetap <img>) --- */
+.svg-ic { width: 1.1em; height: 1.1em; flex-shrink: 0; vertical-align: -0.18em; }
+.info-ic svg, .banner-ic svg, .step-ic svg { width: 20px; height: 20px; display: block; }
+.step-ic svg { width: 16px; height: 16px; }
+.empty-state .icon svg { width: 28px; height: 28px; display: block; }
+.empty-state .icon { display: flex; align-items: center; gap: 8px; }
+.filter-btn svg, .search-ic svg { width: 16px; height: 16px; display: block; }
+.search-ic, .filter-ic { display: inline-flex; align-items: center; justify-content: center; }
+.toggle-password svg { width: 20px; height: 20px; display: block; }
+.search-clear svg { width: 14px; height: 14px; display: block; }
+.search-clear { display: inline-flex; align-items: center; justify-content: center; }
+.m-meta svg { width: 14px; height: 14px; vertical-align: -0.2em; margin-right: 4px; }
+.m-meta span { display: inline-flex; align-items: center; }
 .logo > span {
   font-family: var(--disp); font-size: 22px; font-weight: 700;
   letter-spacing: 0.8px; text-transform: uppercase; line-height: 1;
@@ -418,7 +431,7 @@ select:focus-visible, textarea:focus-visible {
 .about-image {
   border: 2px solid var(--line-dark); border-radius: var(--radius);
   background: var(--card); padding: 10px; box-shadow: var(--shadow-hard);
-  position: relative;
+  position: relative; margin: 0;
 }
 .about-image::before, .about-image::after {
   content: ''; position: absolute; top: -13px; width: 74px; height: 26px;
@@ -429,7 +442,8 @@ select:focus-visible, textarea:focus-visible {
 }
 .about-image::before { left: 22px; transform: rotate(-7deg); }
 .about-image::after { right: 22px; transform: rotate(6deg); }
-.about-img { width: 100%; height: 340px; object-fit: cover; border: 1px solid var(--line-dark); border-radius: 3px; filter: sepia(0.14) contrast(1.03); }
+.about-img { width: 100%; aspect-ratio: 4 / 3; height: auto; max-height: 340px; object-fit: cover; object-position: center; border: 1px solid var(--line-dark); border-radius: 3px; filter: sepia(0.14) contrast(1.03); }
+.about-image .photo-caption { padding: 8px 2px 0; }
 
 .about-text h3 {
   font-family: var(--disp); font-size: 28px; text-transform: uppercase;

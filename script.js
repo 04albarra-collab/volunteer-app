@@ -54,12 +54,14 @@ if (hamburger && navLinks) {
 }
 
 function togglePassword(fieldId, btn) {
+  const SVG_EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const SVG_EYE_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.6 10.6 0 0 1 12 19c-6.5 0-10-7-10-7a17.6 17.6 0 0 1 4.06-4.94M9.9 4.24A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a17.7 17.7 0 0 1-2.16 3.19M14.12 14.12A3 3 0 1 1 9.88 9.88"/><line x1="2" y1="2" x2="22" y2="22"/></svg>';
   const field = document.getElementById(fieldId);
   if (!field) return;
   const show = field.type === 'password';
   field.type = show ? 'text' : 'password';
   if (btn) {
-    btn.textContent = show ? '🙈' : '👁️';
+    btn.innerHTML = show ? SVG_EYE_OFF : SVG_EYE;
     btn.setAttribute('aria-label', show ? 'Sembunyikan password' : 'Tampilkan password');
   }
 }
@@ -582,10 +584,12 @@ function renderMembers() {
 
      updateFilterResult(filtered.length, members.length);
 
-     if (filtered.length === 0) {
-       listEl.innerHTML = `
-         <div class="empty-state">
-           <div class="icon">${memberSearch ? '&#128269;' : '&#128101;'}</div>
+      if (filtered.length === 0) {
+        const SVG_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>';
+        const SVG_USERS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">${memberSearch ? SVG_SEARCH : SVG_USERS}</div>
             <p>${memberSearch ? `Tidak ditemukan hasil untuk "<strong>${escapeHtml(memberSearch)}</strong>".` : (currentFilter === 'semua' ? 'Belum ada anggota yang mendaftar.' : 'Tidak ada anggota dengan status ' + (STATUS_LABEL[currentFilter] || currentFilter) + '.')}</p>
          </div>`;
        return;
@@ -608,7 +612,7 @@ function renderMembers() {
              <div class="member-text">
                 <span class="m-name">${escapeHtml(m.username || m.email)}</span>
                 <span class="m-email">${escapeHtml(m.email)}</span>
-                <span class="m-meta"><span>&#128241; ${escapeHtml(m.telepon || '-')}</span><span class="m-sep">|</span><span>&#128197; ${escapeHtml(m.waktu || '-')}</span></span>
+                 <span class="m-meta"><span><svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8.1 9.6a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg> ${escapeHtml(m.telepon || '-')}</span><span class="m-sep">|</span><span><svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${escapeHtml(m.waktu || '-')}</span></span>
              </div>
            </div>
            <div class="member-actions">
@@ -626,7 +630,7 @@ function renderMembers() {
       console.error('Gagal memuat daftar anggota:', err);
       listEl.innerHTML = `
         <div class="empty-state">
-          <div class="icon">&#9888;</div>
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
           <p>Gagal memuat daftar anggota. Coba muat ulang halaman.</p>
         </div>`;
     });
